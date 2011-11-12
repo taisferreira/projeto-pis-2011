@@ -66,9 +66,10 @@ public class Consultorio extends javax.swing.JFrame {
         mAtualizar = new javax.swing.JMenu();
         miAtualizarUsuario = new javax.swing.JMenuItem();
         miAtualizarPaciente = new javax.swing.JMenuItem();
+        miDespesa = new javax.swing.JMenuItem();
         mExcluir = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        miExcluirUsuario = new javax.swing.JMenuItem();
+        miExcluirPaciente = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -141,15 +142,18 @@ public class Consultorio extends javax.swing.JFrame {
         miAtualizarPaciente.setText("Paciente");
         mAtualizar.add(miAtualizarPaciente);
 
+        miDespesa.setText("Despesa");
+        mAtualizar.add(miDespesa);
+
         mbPrincipal.add(mAtualizar);
 
         mExcluir.setText("Excluir");
 
-        jMenuItem1.setText("Usuário");
-        mExcluir.add(jMenuItem1);
+        miExcluirUsuario.setText("Usuário");
+        mExcluir.add(miExcluirUsuario);
 
-        jMenuItem2.setText("Paciente");
-        mExcluir.add(jMenuItem2);
+        miExcluirPaciente.setText("Paciente");
+        mExcluir.add(miExcluirPaciente);
 
         mbPrincipal.add(mExcluir);
 
@@ -256,8 +260,6 @@ private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -275,5 +277,8 @@ private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem miCadastroFuncao;
     private javax.swing.JMenuItem miCadastroFuncionario;
     private javax.swing.JMenuItem miCadastroMedico;
+    private javax.swing.JMenuItem miDespesa;
+    private javax.swing.JMenuItem miExcluirPaciente;
+    private javax.swing.JMenuItem miExcluirUsuario;
     // End of variables declaration//GEN-END:variables
 }
