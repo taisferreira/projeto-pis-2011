@@ -62,6 +62,7 @@ public class Consultorio extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         miCadastroFuncao = new javax.swing.JMenuItem();
         miCadastroFuncionario = new javax.swing.JMenuItem();
+        miCadConvenio = new javax.swing.JMenuItem();
         mAtualizar = new javax.swing.JMenu();
         miAtualizarUsuario = new javax.swing.JMenuItem();
         miAtualizarPaciente = new javax.swing.JMenuItem();
@@ -116,6 +117,14 @@ public class Consultorio extends javax.swing.JFrame {
             }
         });
         mCadastrar.add(miCadastroFuncionario);
+
+        miCadConvenio.setText("Convênio");
+        miCadConvenio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadConvenioActionPerformed(evt);
+            }
+        });
+        mCadastrar.add(miCadConvenio);
 
         mbPrincipal.add(mCadastrar);
 
@@ -217,6 +226,15 @@ private void miCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {/
     });
 }//GEN-LAST:event_miCadastroClienteActionPerformed
 
+private void miCadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadConvenioActionPerformed
+    java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                new CadastrarConvenio(con).setVisible(true);
+            }
+        });
+}//GEN-LAST:event_miCadConvenioActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,6 +254,7 @@ private void miCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JMenuBar mbPrincipal;
     private javax.swing.JMenuItem miAtualizarPaciente;
     private javax.swing.JMenuItem miAtualizarUsuario;
+    private javax.swing.JMenuItem miCadConvenio;
     private javax.swing.JMenuItem miCadastroCliente;
     private javax.swing.JMenuItem miCadastroFuncao;
     private javax.swing.JMenuItem miCadastroFuncionario;
