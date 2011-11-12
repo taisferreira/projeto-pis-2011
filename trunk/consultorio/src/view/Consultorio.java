@@ -100,6 +100,11 @@ public class Consultorio extends javax.swing.JFrame {
         mCadastrar.add(miCadastroCliente);
 
         jMenuItem8.setText("Despesa");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         mCadastrar.add(jMenuItem8);
 
         miCadastroFuncao.setText("Função");
@@ -234,6 +239,17 @@ private void miCadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN
             }
         });
 }//GEN-LAST:event_miCadConvenioActionPerformed
+
+private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    java.awt.EventQueue.invokeLater(new Runnable() {
+
+        public void run() {
+            CadastrarDespesa fcad = new CadastrarDespesa(con);
+            fcad.getTfCpf().setText(user.getUserCpf());
+            fcad.setVisible(true);
+        }
+    });
+}//GEN-LAST:event_jMenuItem8ActionPerformed
 
 
 
