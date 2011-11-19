@@ -19,6 +19,9 @@ public class PacienteDao {
 		"insert into paciente (CPF, NOME, ENDERECO, TELEFONE)"
               + " values((?),(?),(?),(?))";
 
+    private static final String SQL_DELETE_PACIENTE =
+                "delete from paciente where CPF = (?)";
+
     private Conexao conexao;
     
     public PacienteDao(Conexao con) {
@@ -45,6 +48,44 @@ public class PacienteDao {
             int result = ps.executeUpdate();
             if (result != 1) {
                 throw new DAOException("PacienteDAO: insert failed");
+            }
+            c.commit();
+        } catch (SQLException sqlx) {
+            try {
+                c.rollback();
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            }
+            throw new DAOException(sqlx.getMessage());
+        } finally {
+            try {
+                c.setAutoCommit(transactionState);
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            }
+        }
+    }
+
+     public void delete(String cpf) throws ClassNotFoundException, DAOException{
+        Connection c = null;
+        PreparedStatement ps = null;
+
+        boolean transactionState = false;
+        try {
+            c = conexao.getCon();
+            transactionState = c.getAutoCommit();
+
+            c.setAutoCommit(false);
+
+            ps = c.prepareStatement(SQL_DELETE_PACIENTE);
+            ps.setString(1, cpf);
+
+            int result = ps.executeUpdate();
+            if (result != 1) {
+                throw new DAOException("PacienteDAO: delete failed");
             }
             c.commit();
         } catch (SQLException sqlx) {
