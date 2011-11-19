@@ -150,9 +150,19 @@ public class Consultorio extends javax.swing.JFrame {
         mExcluir.setText("Excluir");
 
         miExcluirUsuario.setText("Usuário");
+        miExcluirUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miExcluirUsuarioActionPerformed(evt);
+            }
+        });
         mExcluir.add(miExcluirUsuario);
 
         miExcluirPaciente.setText("Paciente");
+        miExcluirPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miExcluirPacienteActionPerformed(evt);
+            }
+        });
         mExcluir.add(miExcluirPaciente);
 
         mbPrincipal.add(mExcluir);
@@ -238,6 +248,7 @@ private void miCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {/
 private void miCadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadConvenioActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new CadastrarConvenio(con).setVisible(true);
             }
@@ -254,6 +265,26 @@ private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
     });
 }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+private void miExcluirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirUsuarioActionPerformed
+    java.awt.EventQueue.invokeLater(new Runnable() {
+
+        @Override
+        public void run() {
+            new ExcluirUsuario(con).setVisible(true);
+        }
+    });
+}//GEN-LAST:event_miExcluirUsuarioActionPerformed
+
+private void miExcluirPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirPacienteActionPerformed
+    java.awt.EventQueue.invokeLater(new Runnable() {
+
+        @Override
+        public void run() {
+            new ExcluirPaciente(con).setVisible(true);
+        }
+    });
+}//GEN-LAST:event_miExcluirPacienteActionPerformed
 
 
 

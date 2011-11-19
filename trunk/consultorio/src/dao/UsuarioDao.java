@@ -19,6 +19,9 @@ public class UsuarioDao {
     private static final String SQL_CREATE_USER = 
 		"insert into usuario (CPF, SENHA, NOME, TIPO)"
               + " values((?),(?),(?),(?))";
+    private static final String SQL_DELETE_USUARIO =
+                "delete from usuario where CPF = (?)";
+
 
     private Conexao conexao;
     
@@ -75,6 +78,45 @@ public class UsuarioDao {
             try {
                 c.rollback();
             } catch (SQLException e) {			
+                throw new DAOException(e.getMessage());
+            }
+            throw new DAOException(sqlx.getMessage());
+        } finally {
+            try {
+                c.setAutoCommit(transactionState);
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            }
+        }
+    }
+
+
+     public void delete(String cpf) throws ClassNotFoundException, DAOException{
+        Connection c = null;
+        PreparedStatement ps = null;
+
+        boolean transactionState = false;
+        try {
+            c = conexao.getCon();
+            transactionState = c.getAutoCommit();
+
+            c.setAutoCommit(false);
+
+            ps = c.prepareStatement(SQL_DELETE_USUARIO);
+            ps.setString(1, cpf);
+
+            int result = ps.executeUpdate();
+            if (result != 1) {
+                throw new DAOException("PacienteDAO: delete failed");
+            }
+            c.commit();
+        } catch (SQLException sqlx) {
+            try {
+                c.rollback();
+            } catch (SQLException e) {
                 throw new DAOException(e.getMessage());
             }
             throw new DAOException(sqlx.getMessage());
