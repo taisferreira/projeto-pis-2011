@@ -10,6 +10,7 @@
  */
 package view;
 
+import control.Controler;
 import dao.Conexao;
 import dao.DAOException;
 import dao.DespesasDao;
@@ -23,11 +24,10 @@ import model.Despesa;
  * @author Fabricio
  */
 public class CadastrarDespesa extends javax.swing.JFrame {
-    private Conexao con;
+    private Controler controler;
 
     /** Creates new form CadastrarDespesa */
-    public CadastrarDespesa(Conexao c) {
-        con = c;
+    public CadastrarDespesa() {
         initComponents();
     }
     
@@ -156,25 +156,7 @@ private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_btCancelarActionPerformed
 
 private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-    DespesasDao dao = new DespesasDao(con);
-
-    String pago;
-    if (cbPago.getSelectedIndex() == 0) {
-        pago = "S";
-    } else {
-        pago = "N";
-    }
-
-    Despesa desp = new Despesa(taDescricao.getText(),
-            Double.parseDouble(tfValor.getText()), pago, tfCpf.getText());
-    try {
-        dao.cadDespesa(desp);
-        this.dispose();
-    } catch (DAOException ex) {
-        Logger.getLogger(CadastrarDespesa.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(CadastrarDespesa.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    controler.salvarDespesa(taDescricao.getText(), Double.parseDouble(tfValor.getText()), cbPago.getSelectedIndex(), tfCpf.getText());
 }//GEN-LAST:event_btSalvarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
