@@ -10,23 +10,18 @@
  */
 package view;
 
-import dao.Conexao;
-import dao.ConvenioDao;
-import dao.DAOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Convenio;
+import control.Controler;
 
 /**
  *
  * @author Fabricio
  */
 public class CadastrarConvenio extends javax.swing.JFrame {
-    private Conexao con;
+    Controler controler;
 
     /** Creates new form CadastrarConvenio */
-    public CadastrarConvenio(Conexao c) {
-        con = c;
+    public CadastrarConvenio(Controler c) {
+        this.controler = c;
         initComponents();
     }
 
@@ -105,19 +100,8 @@ public class CadastrarConvenio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-    
-    ConvenioDao dao = new ConvenioDao(con);
-
-    Convenio conv = new Convenio(tfNome.getText(), tfCnpj.getText());
-
-    try {
-        dao.cadConvenio(conv);
-        this.dispose();
-    } catch (DAOException ex) {
-        Logger.getLogger(CadastrarConvenio.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(CadastrarConvenio.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    controler.salvarConvenio(tfNome.getText(), tfCnpj.getText());
+    this.dispose();
 }//GEN-LAST:event_btSalvarActionPerformed
 
 private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
