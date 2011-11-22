@@ -10,10 +10,10 @@
  */
 package util;
 
-import dao.Conexao;
-import dao.UsuarioDao;
+import control.Controler;
 import java.awt.Point;
 import javax.swing.JOptionPane;
+import model.Model;
 import model.Usuario;
 import view.Consultorio;
 
@@ -22,12 +22,11 @@ import view.Consultorio;
  * @author Fabricio
  */
 public class UserLogin extends javax.swing.JFrame {
-    private Conexao con;
-    private Usuario user;
+    private Controler controler;
 
     /** Creates new form UserLogin */
-    public UserLogin() {
-        con = new Conexao();
+    public UserLogin(Controler c) {
+        controler = c;
         this.setLocation(new Point(300,300));
         initComponents();
     }
@@ -116,21 +115,15 @@ public class UserLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
- 
-    String cpf = tfLogin.getText();
-    String senha = tfPassword.getText();
-    
-    user = new Usuario(cpf, null, senha, 3);
-    UsuarioDao userDao = new UsuarioDao(con);
-    Usuario foundUser = userDao.getUser(user);
-    if( (foundUser.getUserCpf()==null) || 
-            !(foundUser.getUserPassword().equals(user.getUserPassword())) ){
+    final Usuario result;
+    result = controler.executarLogin(tfLogin.getText(), tfPassword.getText());
+    if(result == null){
         JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos.");
     } else {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Consultorio(user, con).setVisible(true);
+                new Consultorio(result, controler).setVisible(true);
             }
         });
         this.dispose();
@@ -171,7 +164,9 @@ private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new UserLogin().setVisible(true);
+                Model modelo = new Model();
+                Controler c = new Controler(modelo);
+                new UserLogin(c).setVisible(true);
             }
         });
     }

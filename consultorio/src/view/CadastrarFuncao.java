@@ -10,6 +10,7 @@
  */
 package view;
 
+import control.Controler;
 import dao.Conexao;
 import dao.DAOException;
 import dao.FuncaoDao;
@@ -23,11 +24,11 @@ import model.Usuario;
  * @author Fabricio
  */
 public class CadastrarFuncao extends javax.swing.JFrame {
-    private Conexao con;
+    private Controler controler;
 
     /** Creates new form CadastrarFuncao */
-    public CadastrarFuncao(Conexao c) {
-        con = c;
+    public CadastrarFuncao(Controler c) {
+        controler = c;
         initComponents();
     }
 
@@ -102,17 +103,8 @@ public class CadastrarFuncao extends javax.swing.JFrame {
 
 private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
     
-    FuncaoDao fDao = new FuncaoDao(con);
-    Funcao fn = new Funcao(tfNome.getText());
-    
-    try {
-        fDao.cadastrarFn(fn);
-        tfNome.setText("");
-    } catch (DAOException ex) {
-        Logger.getLogger(CadastrarFuncao.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(CadastrarFuncao.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    controler.salvarFuncao(tfNome.getText());
+    tfNome.setText("");
     
 }//GEN-LAST:event_btSalvarActionPerformed
 

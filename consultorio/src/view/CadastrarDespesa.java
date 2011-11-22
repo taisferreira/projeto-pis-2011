@@ -27,7 +27,8 @@ public class CadastrarDespesa extends javax.swing.JFrame {
     private Controler controler;
 
     /** Creates new form CadastrarDespesa */
-    public CadastrarDespesa() {
+    public CadastrarDespesa(Controler c) {
+        controler = c;
         initComponents();
     }
     

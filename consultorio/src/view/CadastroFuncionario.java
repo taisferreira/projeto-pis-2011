@@ -10,6 +10,7 @@
  */
 package view;
 
+import control.Controler;
 import dao.Conexao;
 import dao.DAOException;
 import dao.FuncionarioDao;
@@ -24,11 +25,11 @@ import model.Medico;
  * @author Fabricio
  */
 public class CadastroFuncionario extends javax.swing.JFrame {
-    private Conexao con;
+    private Controler controler;
 
     /** Creates new form CadastroUsuario */
-    public CadastroFuncionario(Conexao c) {
-        con = c;
+    public CadastroFuncionario(Controler c) {
+        controler = c;
         initComponents();
     }
 
@@ -168,19 +169,8 @@ private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_btCancelarActionPerformed
 
 private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-    Funcionario func = new Funcionario(Integer.parseInt(tfCodFn.getText()),
-                null, Double.parseDouble(tfSalario.getText()), tfCpf.getText(),
-                tfNome.getText(), new String(tfSenha.getPassword()),
-                Integer.parseInt(tfTipo.getText()));
-    FuncionarioDao dao = new FuncionarioDao(con);
-    try {
-        dao.createEmployee(func);
-        this.dispose();
-    } catch (DAOException ex) {
-        Logger.getLogger(CadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(CadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    controler.salvarFuncionario(tfCodFn.getText(), null, tfSalario.getText(), tfCpf.getText(), tfNome.getText(), tfSenha.getPassword(),tfTipo.getText());
+    this.dispose();
 }//GEN-LAST:event_btSalvarActionPerformed
 
     

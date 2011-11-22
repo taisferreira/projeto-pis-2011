@@ -10,6 +10,7 @@
  */
 package view;
 
+import control.Controler;
 import dao.Conexao;
 import model.Usuario;
 
@@ -19,21 +20,21 @@ import model.Usuario;
  */
 public class Consultorio extends javax.swing.JFrame {
     private Usuario user;
-    private Conexao con;
+    private Controler controler;
 
     /** Creates new form Consultorio */
-    public Consultorio(Usuario u, Conexao c) {
+    public Consultorio(Usuario u, Controler c) {
         user = u;
-        con = c;
+        controler = c;
         initComponents();
     }
 
-    public Conexao getCon() {
-        return con;
+    public Controler getControler() {
+        return controler;
     }
 
-    public void setCon(Conexao con) {
-        this.con = con;
+    public void setControler(Controler controler) {
+        this.controler = controler;
     }
 
     public Usuario getUser() {
@@ -211,7 +212,7 @@ private void miCadastroMedicoActionPerformed(java.awt.event.ActionEvent evt) {//
 
             @Override
             public void run() {
-                new CadastroMedico(con).setVisible(true);
+                new CadastroMedico(controler).setVisible(true);
             }
         });
 }//GEN-LAST:event_miCadastroMedicoActionPerformed
@@ -221,7 +222,7 @@ private void miCadastroFuncaoActionPerformed(java.awt.event.ActionEvent evt) {//
 
             @Override
             public void run() {
-                new CadastrarFuncao(con).setVisible(true);
+                new CadastrarFuncao(controler).setVisible(true);
             }
         });
 }//GEN-LAST:event_miCadastroFuncaoActionPerformed
@@ -231,7 +232,7 @@ private void miCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt
 
             @Override
             public void run() {
-                new CadastroFuncionario(con).setVisible(true);
+                new CadastroFuncionario(controler).setVisible(true);
             }
         });
 }//GEN-LAST:event_miCadastroFuncionarioActionPerformed
@@ -240,7 +241,7 @@ private void miCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {/
     java.awt.EventQueue.invokeLater(new Runnable() {
 
         public void run() {
-            new CadastrarPaciente(con).setVisible(true);
+            new CadastrarPaciente(controler).setVisible(true);
         }
     });
 }//GEN-LAST:event_miCadastroClienteActionPerformed
@@ -250,7 +251,7 @@ private void miCadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
             @Override
             public void run() {
-                new CadastrarConvenio(con).setVisible(true);
+                new CadastrarConvenio(controler).setVisible(true);
             }
         });
 }//GEN-LAST:event_miCadConvenioActionPerformed
@@ -259,7 +260,7 @@ private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     java.awt.EventQueue.invokeLater(new Runnable() {
 
         public void run() {
-            CadastrarDespesa fcad = new CadastrarDespesa(con);
+            CadastrarDespesa fcad = new CadastrarDespesa(controler);
             fcad.getTfCpf().setText(user.getUserCpf());
             fcad.setVisible(true);
         }
@@ -271,7 +272,7 @@ private void miExcluirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//
 
         @Override
         public void run() {
-            new ExcluirUsuario(con).setVisible(true);
+            new ExcluirUsuario(controler).setVisible(true);
         }
     });
 }//GEN-LAST:event_miExcluirUsuarioActionPerformed
@@ -281,7 +282,7 @@ private void miExcluirPacienteActionPerformed(java.awt.event.ActionEvent evt) {/
 
         @Override
         public void run() {
-            new ExcluirPaciente(con).setVisible(true);
+            new ExcluirPaciente(controler).setVisible(true);
         }
     });
 }//GEN-LAST:event_miExcluirPacienteActionPerformed

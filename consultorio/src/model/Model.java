@@ -8,10 +8,19 @@ import dao.Conexao;
 import dao.ConvenioDao;
 import dao.DAOException;
 import dao.DespesasDao;
+import dao.FuncaoDao;
+import dao.FuncionarioDao;
+import dao.MedicoDao;
+import dao.PacienteDao;
+import dao.UsuarioDao;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.CadastrarConvenio;
 import view.CadastrarDespesa;
+import view.CadastrarFuncao;
+import view.CadastrarPaciente;
+import view.CadastroFuncionario;
+import view.CadastroMedico;
 
 /**
  *
@@ -47,6 +56,95 @@ public class Model {
             Logger.getLogger(CadastrarDespesa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastrarDespesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void salvarFuncao(String tfNome){
+        FuncaoDao fDao = new FuncaoDao(con);
+        Funcao fn = new Funcao(tfNome);
+        try {
+            fDao.cadastrarFn(fn);
+        } catch (DAOException ex) {
+            Logger.getLogger(CadastrarFuncao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastrarFuncao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void salvarPaciente(String tfCpf, String tfNome, String tfEndereco, String tfTelefone){
+        PacienteDao dao = new PacienteDao(con);
+        Paciente paciente = new Paciente(tfCpf, tfNome, tfEndereco, tfTelefone);
+        try {
+            dao.create(paciente);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        } catch (DAOException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+    }
+    
+    
+    public void salvarFuncionario(int tfCodFn,String nomeFn, Double salario, String userCpf, String userName, String userPassword, Integer userType){
+        Funcionario func = new Funcionario(tfCodFn, nomeFn, salario, userCpf, userName,userPassword, userType);
+        FuncionarioDao dao = new FuncionarioDao(con);
+        try {
+            dao.createEmployee(func);
+        } catch (DAOException ex) {
+            Logger.getLogger(CadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void salvarMedico(String tfCrm, String tfCpf,String tfNome, String tfSenha,int tfTipo){
+        Medico medico = new Medico(tfCrm, tfCpf, tfNome, tfSenha, tfTipo);
+        MedicoDao dao = new MedicoDao(con);
+        try {
+            dao.createDoctor(medico);
+        } catch (DAOException ex) {
+            Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void excluirPaciente(String cpf){
+        PacienteDao dao = new PacienteDao(con);
+        try {
+            dao.delete(cpf);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        } catch (DAOException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+    }
+    
+    public void excluirUsuario(String cpf){
+        UsuarioDao dao = new UsuarioDao(con);
+        try {
+            dao.delete(cpf);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        } catch (DAOException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+    }
+    
+    public Usuario executarLogin(String cpf, String senha){
+        Usuario user = new Usuario(cpf, null, senha, 3);
+        UsuarioDao userDao = new UsuarioDao(con);
+        Usuario foundUser = userDao.getUser(user);
+        if( (foundUser.getUserCpf()==null) || !(foundUser.getUserPassword().equals(user.getUserPassword())) ){
+            return null;
+        } else {
+            return user;
         }
     }
 
