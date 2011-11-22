@@ -11,6 +11,7 @@
 
 package view;
 
+import control.Controler;
 import dao.Conexao;
 import dao.DAOException;
 import dao.PacienteDao;
@@ -22,10 +23,10 @@ import java.util.logging.Logger;
  * @author Lucas
  */
 public class ExcluirPaciente extends javax.swing.JFrame {
-    private Conexao con;
+    private Controler controler;
     /** Creates new form CadastrarPaciente */
-    public ExcluirPaciente(Conexao c) {
-        this.con = c;
+    public ExcluirPaciente(Controler c) {
+        this.controler = c;
         initComponents();
     }
 
@@ -44,6 +45,12 @@ public class ExcluirPaciente extends javax.swing.JFrame {
         botaocancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pacientecpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pacientecpfActionPerformed(evt);
+            }
+        });
 
         botaoexcluir.setText("Excluir");
         botaoexcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -98,18 +105,13 @@ public class ExcluirPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_botaocancelarActionPerformed
 
     private void botaoexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoexcluirActionPerformed
-        PacienteDao dao = new PacienteDao(con);
-        try {
-            dao.delete(pacientecpf.getText());
-            this.dispose();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        } catch (DAOException ex) {
-            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
+        controler.excluirPaciente(pacientecpf.getText());
+        this.dispose();
     }//GEN-LAST:event_botaoexcluirActionPerformed
+
+private void pacientecpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pacientecpfActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_pacientecpfActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaocancelar;

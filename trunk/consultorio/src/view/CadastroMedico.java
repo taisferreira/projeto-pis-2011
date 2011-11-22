@@ -10,6 +10,7 @@
  */
 package view;
 
+import control.Controler;
 import dao.Conexao;
 import dao.DAOException;
 import dao.MedicoDao;
@@ -22,11 +23,11 @@ import model.Medico;
  * @author Fabricio
  */
 public class CadastroMedico extends javax.swing.JFrame {
-    private Conexao con;
+    private Controler controler;
 
     /** Creates new form CadastroUsuario */
-    public CadastroMedico(Conexao c) {
-        con = c;
+    public CadastroMedico(Controler c) {
+        controler = c;
         initComponents();
     }
 
@@ -151,18 +152,8 @@ private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_btCancelarActionPerformed
 
 private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-    Medico medico = new Medico(tfCrm.getText(), tfCpf.getText(),
-            tfNome.getText(), new String(tfSenha.getPassword()),
-            Integer.parseInt(tfTipo.getText()));
-    MedicoDao dao = new MedicoDao(con);
-    try {
-        dao.createDoctor(medico);
-        this.dispose();
-    } catch (DAOException ex) {
-        Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    controler.salvarMedico(tfCrm.getText(), tfCpf.getText(), tfNome.getText(), tfSenha.getPassword(), tfTipo.getText());
+    this.dispose();
 }//GEN-LAST:event_btSalvarActionPerformed
 
     

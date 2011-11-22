@@ -11,6 +11,7 @@
 
 package view;
 
+import control.Controler;
 import dao.Conexao;
 import dao.DAOException;
 import dao.UsuarioDao;
@@ -22,10 +23,10 @@ import java.util.logging.Logger;
  * @author Lucas
  */
 public class ExcluirUsuario extends javax.swing.JFrame {
-    private Conexao con;
+    private Controler controler;
     /** Creates new form CadastrarPaciente */
-    public ExcluirUsuario(Conexao c) {
-        this.con = c;
+    public ExcluirUsuario(Controler c) {
+        this.controler = c;
         initComponents();
     }
 
@@ -100,17 +101,8 @@ public class ExcluirUsuario extends javax.swing.JFrame {
 }//GEN-LAST:event_botaocancelarActionPerformed
 
     private void botaoexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoexcluirActionPerformed
-        UsuarioDao dao = new UsuarioDao(con);
-        try {
-            dao.delete(usuariocpf.getText());
-            this.dispose();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        } catch (DAOException ex) {
-            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
+        controler.excluirUsuario(usuariocpf.getText());
+        this.dispose();
 }//GEN-LAST:event_botaoexcluirActionPerformed
 
     /**

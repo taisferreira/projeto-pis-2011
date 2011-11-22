@@ -10,6 +10,7 @@
  */
 package view;
 
+import control.Controler;
 import dao.Conexao;
 import dao.DAOException;
 import dao.PacienteDao;
@@ -22,10 +23,10 @@ import model.Paciente;
  * @author Fabricio
  */
 public class CadastrarPaciente extends javax.swing.JFrame {
-    private Conexao con;
+    private Controler controler;
     /** Creates new form CadastrarPaciente */
-    public CadastrarPaciente(Conexao c) {
-        this.con = c;
+    public CadastrarPaciente(Controler c) {
+        this.controler = c;
         initComponents();
     }
 
@@ -138,19 +139,8 @@ private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_btCancelarActionPerformed
 
 private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-    PacienteDao dao = new PacienteDao(con);
-    Paciente paciente = new Paciente(tfCpf.getText(), tfNome.getText(),
-            tfEndereco.getText(), tfTelefone.getText());
-    try {
-        dao.create(paciente);
-        this.dispose();
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
-                null, ex);
-    } catch (DAOException ex) {
-        Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
-                null, ex);
-    }
+    controler.salvarPaciente(tfCpf.getText(), tfNome.getText(), tfEndereco.getText(), tfTelefone.getText());
+    this.dispose();
 }//GEN-LAST:event_btSalvarActionPerformed
 
 
