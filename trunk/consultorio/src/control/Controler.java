@@ -18,8 +18,8 @@ public class Controler {
         model = m;
     }
     
-    public void salvarConvenio(String tfNome, String tfCnpj){
-        model.salvarConvenio(tfNome, tfCnpj);
+    public void salvarConvenio(String tfNome, String tfCnpj, double desconto){
+        model.salvarConvenio(tfNome, tfCnpj, desconto);
     }
     
     public void salvarDespesa(String taDescricao, Double tfValor, int pg, String tfCpf){

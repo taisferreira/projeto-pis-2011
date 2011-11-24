@@ -53,7 +53,7 @@ public class CadastroMedico extends javax.swing.JFrame {
         tfTipo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastrar Médico"); // NOI18N
         setResizable(false);
 
@@ -107,7 +107,7 @@ public class CadastroMedico extends javax.swing.JFrame {
                         .addComponent(btSalvar)
                         .addGap(18, 18, 18)
                         .addComponent(btCancelar)
-                        .addContainerGap(194, Short.MAX_VALUE))))
+                        .addContainerGap(200, Short.MAX_VALUE))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btCancelar, btSalvar});

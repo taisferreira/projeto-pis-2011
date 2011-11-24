@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Medico;
 import model.Usuario;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,11 +25,19 @@ public class MedicoDao {
     
     private static final String SQL_CREATE_DOCTOR =
             "insert into medico (CRM, CPF_USUARIO) values ((?),(?))";
+
+     private static final String SQL_FIND_ALL_DOCTORS =
+                "select * from medico md, usuario us where"
+            + " md.cpf_Usuario = us.cpf";
     
     private Conexao conexao;
     
     public MedicoDao(Conexao con) {
         this.conexao = con;
+    }
+
+    public MedicoDao() {
+        this.conexao = new Conexao();
     }
     
     public Medico findDoctor(Medico user){
@@ -97,5 +106,32 @@ public class MedicoDao {
                 throw new DAOException(e.getMessage());
             }
         }
+    }
+
+
+    /*Inserido para listar médicos a serem escolhidos
+     quando for cadastrar uma consulta */
+    public ArrayList<Object> findAllMedicos(){
+        Medico medico = new Medico(null, null, null, null, Integer.SIZE);
+        Connection c;
+        ResultSet rs;
+        ArrayList<Object> medicos = new ArrayList<Object>();
+        PreparedStatement pst;
+
+        try{
+            c = conexao.getCon();
+            rs = null;
+            pst = c.prepareStatement(SQL_FIND_ALL_DOCTORS);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                medico = new Medico(rs.getString("crm"), rs.getString("cpf"),
+                        rs.getString("nome"), rs.getString("senha"),
+                        rs.getInt("tipo"));
+                medicos.add(medico);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return medicos;
     }
 }

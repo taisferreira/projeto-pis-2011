@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import model.Paciente;
+import java.sql.ResultSet;
 
 /**
  *
@@ -21,6 +22,10 @@ public class PacienteDao {
 
     private static final String SQL_DELETE_PACIENTE =
                 "delete from paciente where CPF = (?)";
+    
+     private static final String SQL_FIND_PACIENTE =
+                "select * from paciente where CPF = (?)";
+
 
     private Conexao conexao;
     
@@ -106,5 +111,32 @@ public class PacienteDao {
             }
         }
     }
+
+      public static Paciente buscar(String cpf){
+        Connection c;
+        PreparedStatement ps;
+        ResultSet rs;
+        Paciente paciente = null;
+
+        try {
+            c = new Conexao().getCon();
+
+            ps = c.prepareStatement(SQL_FIND_PACIENTE);
+            ps.setString(1, cpf);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()){
+                paciente = new Paciente();
+                paciente.setCpfPaciente(cpf);
+                paciente.setEndPaciente(rs.getString("nome"));
+                paciente.setEndPaciente(rs.getString("endereco"));
+                paciente.setTelPaciente(rs.getString("telefone"));
+            }
+
+        } catch (Exception sqlx) {}
+
+        return paciente;
+     }
     
 }
