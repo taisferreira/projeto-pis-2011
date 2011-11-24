@@ -44,7 +44,7 @@ public class ExcluirPaciente extends javax.swing.JFrame {
         labelcpf = new javax.swing.JLabel();
         botaocancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pacientecpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

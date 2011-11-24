@@ -11,8 +11,11 @@
 package view;
 
 import control.Controler;
+import control.ConsultaControler;
+import control.Controler;
 import dao.Conexao;
 import model.Usuario;
+import model.Model;
 
 /**
  *
@@ -171,12 +174,27 @@ public class Consultorio extends javax.swing.JFrame {
         jMenu1.setText("Consulta");
 
         jMenuItem3.setText("Marcar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setText("Alterar");
+        jMenuItem4.setText("Buscar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Desmarcar");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         mbPrincipal.add(jMenu1);
@@ -287,6 +305,17 @@ private void miExcluirPacienteActionPerformed(java.awt.event.ActionEvent evt) {/
     });
 }//GEN-LAST:event_miExcluirPacienteActionPerformed
 
+private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    ConsultaControler.marcar_consulta();
+}//GEN-LAST:event_jMenuItem3ActionPerformed
+
+private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    ConsultaControler.desmarcar_consulta();
+}//GEN-LAST:event_jMenuItem5ActionPerformed
+
+private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    ConsultaControler.buscar_consulta();
+}//GEN-LAST:event_jMenuItem4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

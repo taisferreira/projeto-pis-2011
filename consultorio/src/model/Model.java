@@ -33,10 +33,11 @@ public class Model {
         
     }
     
-    public void salvarConvenio(String tfNome, String tfCnpj){
+    public void salvarConvenio(String tfNome, String tfCnpj, double desconto){
         ConvenioDao dao = new ConvenioDao(con);
 
     Convenio conv = new Convenio(tfNome, tfCnpj);
+    conv.setDesconto(desconto);
 
     try {
         dao.cadConvenio(conv);

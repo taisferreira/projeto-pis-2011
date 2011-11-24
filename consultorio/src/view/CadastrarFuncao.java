@@ -46,7 +46,7 @@ public class CadastrarFuncao extends javax.swing.JFrame {
         btCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Funcao"); // NOI18N
         setResizable(false);
 

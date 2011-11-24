@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import model.Convenio;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,12 +18,19 @@ import model.Convenio;
 public class ConvenioDao {
     
     private static final String SQL_CREATE_CONVENIO =
-            "insert into convenio (NOME, CNPJ) values ((?),(?))";
+            "insert into convenio (NOME, CNPJ, desconto) values ((?),(?),(?))";
+
+        private static final String SQL_SELECT_ALLCONVENIOS =
+            "SELECT * FROM convenio";
     
     private Conexao conexao;
     
     public ConvenioDao(Conexao con) {
         this.conexao = con;
+    }
+
+    public ConvenioDao() {
+       
     }
     
     public void cadConvenio(Convenio conv) throws DAOException, ClassNotFoundException{
@@ -38,6 +47,8 @@ public class ConvenioDao {
             ps = c.prepareStatement(SQL_CREATE_CONVENIO);
             ps.setString(1, conv.getNome());
             ps.setString(2, conv.getCnpj());
+            ps.setDouble(3, conv.getDesconto());
+
 
             int result = ps.executeUpdate();
             if (result != 1) {
@@ -62,5 +73,31 @@ public class ConvenioDao {
             }
         }
     }
-    
+    public ArrayList<Object> getAllConvenios(){
+        ArrayList<Object> a = new ArrayList<Object>();
+        Connection c;
+        PreparedStatement ps;
+        ResultSet rs;
+        Convenio convenio;
+
+        try {
+            c = new Conexao().getCon();
+
+            ps = c.prepareStatement(SQL_SELECT_ALLCONVENIOS);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()){
+                convenio = new Convenio();
+                convenio.setCnpj(rs.getString("CNPJ"));
+                convenio.setNome(rs.getString("NOME"));
+                convenio.setDesconto(rs.getDouble("desconto"));
+                a.add(convenio);
+            }
+
+        } catch (Exception sqlx) {
+
+        }
+        return a;
+    }
 }

@@ -20,6 +20,9 @@ public class Paciente {
         this.endPaciente = endPaciente;
         this.telPaciente = telPaciente;
     }
+    public Paciente() {
+
+    }
 
     public String getCpfPaciente() {
         return cpfPaciente;
