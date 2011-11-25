@@ -5,6 +5,7 @@
 package control;
 
 import model.Model;
+import model.Paciente;
 import model.Usuario;
 
 
@@ -66,6 +67,22 @@ public class Controler {
     
     public void excluirUsuario(String cpf){
         model.excluirUsuario(cpf);
+    }
+    
+    public Paciente buscarPaciente(String cpf){
+        return model.buscarPaciente(cpf);
+    }
+    
+    public void atualizarPaciente(Paciente p) {
+        model.atualizarPaciente(p);
+    }
+    
+    public Usuario buscarUsuario(String cpf){
+        return model.buscarUsuario(cpf);
+    }
+    
+    public void atualizarUsuario(Usuario p) {
+        model.atualizarUsuario(p);
     }
     
     public Usuario executarLogin(String cpf, String senha){

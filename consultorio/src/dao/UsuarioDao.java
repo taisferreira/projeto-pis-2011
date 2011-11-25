@@ -21,7 +21,8 @@ public class UsuarioDao {
               + " values((?),(?),(?),(?))";
     private static final String SQL_DELETE_USUARIO =
                 "delete from usuario where CPF = (?)";
-
+    private static final String SQL_UPDATE_USUARIO =
+                "update usuario set NOME = (?), SENHA = (?), TIPO = (?) where CPF = (?)";
 
     private Conexao conexao;
     
@@ -111,6 +112,46 @@ public class UsuarioDao {
             int result = ps.executeUpdate();
             if (result != 1) {
                 throw new DAOException("PacienteDAO: delete failed");
+            }
+            c.commit();
+        } catch (SQLException sqlx) {
+            try {
+                c.rollback();
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            }
+            throw new DAOException(sqlx.getMessage());
+        } finally {
+            try {
+                c.setAutoCommit(transactionState);
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            }
+        }
+    }
+     public void update(Usuario usuario) throws ClassNotFoundException, DAOException{
+        Connection c = null;
+        PreparedStatement ps = null;
+
+        boolean transactionState = false;
+        try {
+            c = conexao.getCon();
+            transactionState = c.getAutoCommit();
+
+            c.setAutoCommit(false);
+
+            ps = c.prepareStatement(SQL_UPDATE_USUARIO);
+            ps.setString(1, usuario.getUserName());
+            ps.setString(2, usuario.getUserPassword());
+            ps.setString(3, usuario.getUserType().toString());
+            ps.setString(4, usuario.getUserCpf());
+
+            int result = ps.executeUpdate();
+            if (result != 1) {
+                throw new DAOException("PacienteDAO: update failed");
             }
             c.commit();
         } catch (SQLException sqlx) {

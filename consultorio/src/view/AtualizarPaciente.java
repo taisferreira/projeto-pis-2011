@@ -11,14 +11,22 @@
 
 package view;
 
+import control.Controler;
+import model.Paciente;
+
 /**
  *
  * @author Lucas
  */
 public class AtualizarPaciente extends javax.swing.JFrame {
-
+    private Controler controler;
     /** Creates new form AtualizarPaciente */
     public AtualizarPaciente() {
+        initComponents();
+    }
+
+    AtualizarPaciente(Controler controler) {
+        this.controler = controler;
         initComponents();
     }
 
@@ -31,34 +39,150 @@ public class AtualizarPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        botaoAtualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        campoCPF = new javax.swing.JTextField();
+        botaoBuscar = new javax.swing.JButton();
+        campoNome = new javax.swing.JTextField();
+        Nome = new javax.swing.JLabel();
+        campoEnd = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        campoTel = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        botaoCancelar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        botaoAtualizar.setText("Atualizar");
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("CPF");
+
+        botaoBuscar.setText("Buscar");
+        botaoBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoBuscarActionPerformed(evt);
+            }
+        });
+
+        Nome.setText("Nome");
+
+        jLabel2.setText("Endereço");
+
+        jLabel3.setText("Telefone");
+
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap())
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addContainerGap())
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(Nome)
+                            .addContainerGap())
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(campoTel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                                .addComponent(campoEnd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                                .addComponent(campoNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                    .addComponent(botaoBuscar)))
+                            .addGap(18, 18, 18)
+                            .addComponent(botaoAtualizar)
+                            .addGap(29, 29, 29)))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(305, Short.MAX_VALUE)
+                .addComponent(botaoCancelar)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botaoAtualizar)
+                        .addComponent(botaoBuscar)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(Nome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(campoEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(36, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoCancelar)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AtualizarPaciente().setVisible(true);
-            }
-        });
-    }
+    private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
+        Paciente p = controler.buscarPaciente(campoCPF.getText());
+        campoEnd.setText(p.getEndPaciente());
+        campoTel.setText(p.getTelPaciente());
+        campoNome.setText(p.getNomePaciente());
+    }//GEN-LAST:event_botaoBuscarActionPerformed
+
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarActionPerformed
+
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+        Paciente p = new Paciente(campoCPF.getText(), campoNome.getText(), campoEnd.getText(), campoTel.getText());
+        controler.atualizarPaciente(p);
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Nome;
+    private javax.swing.JButton botaoAtualizar;
+    private javax.swing.JButton botaoBuscar;
+    private javax.swing.JButton botaoCancelar;
+    private javax.swing.JTextField campoCPF;
+    private javax.swing.JTextField campoEnd;
+    private javax.swing.JTextField campoNome;
+    private javax.swing.JTextField campoTel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -25,6 +25,9 @@ public class PacienteDao {
     
      private static final String SQL_FIND_PACIENTE =
                 "select * from paciente where CPF = (?)";
+     
+     private static final String SQL_UPDATE_PACIENTE =
+                "update paciente set NOME = (?), ENDERECO = (?), TELEFONE =(?) where CPF = (?)";
 
 
     private Conexao conexao;
@@ -110,6 +113,8 @@ public class PacienteDao {
                 throw new DAOException(e.getMessage());
             }
         }
+        
+        
     }
 
       public static Paciente buscar(String cpf){
@@ -138,5 +143,44 @@ public class PacienteDao {
 
         return paciente;
      }
-    
+      public void update(Paciente paciente) throws ClassNotFoundException, DAOException{
+        Connection c = null;
+        PreparedStatement ps = null;
+
+        boolean transactionState = false;
+        try {
+            c = conexao.getCon();
+            transactionState = c.getAutoCommit();
+
+            c.setAutoCommit(false);
+
+            ps = c.prepareStatement(SQL_UPDATE_PACIENTE);
+            ps.setString(1, paciente.getNomePaciente());
+            ps.setString(2, paciente.getEndPaciente());
+            ps.setString(3, paciente.getTelPaciente());
+            ps.setString(4, paciente.getCpfPaciente());
+
+            int result = ps.executeUpdate();
+            if (result != 1) {
+                throw new DAOException("PacienteDAO: update failed");
+            }
+            c.commit();
+        } catch (SQLException sqlx) {
+            try {
+                c.rollback();
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            }
+            throw new DAOException(sqlx.getMessage());
+        } finally {
+            try {
+                c.setAutoCommit(transactionState);
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            }
+        }
+      }
 }
