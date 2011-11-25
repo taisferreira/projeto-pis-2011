@@ -141,9 +141,19 @@ public class Consultorio extends javax.swing.JFrame {
         mAtualizar.setText("Atualizar");
 
         miAtualizarUsuario.setText("Usuário");
+        miAtualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAtualizarUsuarioActionPerformed(evt);
+            }
+        });
         mAtualizar.add(miAtualizarUsuario);
 
         miAtualizarPaciente.setText("Paciente");
+        miAtualizarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAtualizarPacienteActionPerformed(evt);
+            }
+        });
         mAtualizar.add(miAtualizarPaciente);
 
         miDespesa.setText("Despesa");
@@ -316,6 +326,26 @@ private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
     ConsultaControler.buscar_consulta();
 }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+private void miAtualizarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarPacienteActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+        @Override
+        public void run() {
+            new AtualizarPaciente(controler).setVisible(true);
+        }
+    });
+}//GEN-LAST:event_miAtualizarPacienteActionPerformed
+
+private void miAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarUsuarioActionPerformed
+    java.awt.EventQueue.invokeLater(new Runnable() {
+
+        @Override
+        public void run() {
+            new AtualizarUsuario(controler).setVisible(true);
+        }
+    });
+}//GEN-LAST:event_miAtualizarUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

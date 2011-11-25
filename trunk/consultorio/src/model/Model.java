@@ -138,6 +138,56 @@ public class Model {
         }
     }
     
+    public void atualizarPaciente(Paciente paciente){
+        PacienteDao dao = new PacienteDao(con);
+        try {
+            dao.update(paciente);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        } catch (DAOException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+    }
+    
+    public void atualizarUsuario(Usuario usuario){
+        UsuarioDao dao = new UsuarioDao(con);
+        try {
+            dao.update(usuario);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        } catch (DAOException ex) {
+            Logger.getLogger(CadastrarPaciente.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+    }
+    
+    public Paciente buscarPaciente(String cpf){
+        PacienteDao dao = new PacienteDao(con);
+        Paciente p = new Paciente();
+        try {
+            p = dao.buscar(cpf);
+        }
+        finally{
+            return p;
+        }
+    }
+    
+    public Usuario buscarUsuario(String cpf){
+        UsuarioDao dao = new UsuarioDao(con);
+        Usuario p = new Usuario();
+        p.setUserCpf(cpf);
+        try {
+            p = dao.getUser(p);
+        }
+        finally{
+            return p;
+        }
+    }
+    
+    
     public Usuario executarLogin(String cpf, String senha){
         Usuario user = new Usuario(cpf, null, senha, 3);
         UsuarioDao userDao = new UsuarioDao(con);

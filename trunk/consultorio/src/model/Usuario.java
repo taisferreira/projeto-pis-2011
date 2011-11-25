@@ -14,6 +14,10 @@ public class Usuario {
     private String userPassword;
     private Integer userType;
 
+    public Usuario() {
+
+    }
+    
     public Usuario(String userCpf, String userName, String userPassword, Integer userType) {
         this.userCpf = userCpf;
         this.userName = userName;
