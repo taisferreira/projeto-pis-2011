@@ -69,8 +69,14 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="tfLogin">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfLoginActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tfPassword">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfPasswordActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="okButton">
       <Properties>

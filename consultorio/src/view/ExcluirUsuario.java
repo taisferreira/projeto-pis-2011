@@ -46,6 +46,12 @@ public class ExcluirUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        usuariocpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuariocpfActionPerformed(evt);
+            }
+        });
+
         botaocancelar.setText("Cancelar");
         botaocancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +108,10 @@ public class ExcluirUsuario extends javax.swing.JFrame {
         controler.excluirUsuario(usuariocpf.getText());
         this.dispose();
 }//GEN-LAST:event_botaoexcluirActionPerformed
+
+    private void usuariocpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariocpfActionPerformed
+        this.botaoexcluirActionPerformed(evt);
+    }//GEN-LAST:event_usuariocpfActionPerformed
 
     /**
     * @param args the command line arguments

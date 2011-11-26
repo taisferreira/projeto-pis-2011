@@ -110,7 +110,7 @@ public class ExcluirPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoexcluirActionPerformed
 
 private void pacientecpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pacientecpfActionPerformed
-// TODO add your handling code here:
+    this.botaoexcluirActionPerformed(evt);
 }//GEN-LAST:event_pacientecpfActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
