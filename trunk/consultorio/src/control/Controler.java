@@ -4,6 +4,9 @@
  */
 package control;
 
+import java.util.ArrayList;
+import java.util.List;
+import model.Funcao;
 import model.Model;
 import model.Paciente;
 import model.Usuario;
@@ -88,5 +91,9 @@ public class Controler {
     
     public Usuario executarLogin(String cpf, String senha){
         return model.executarLogin(cpf, senha);
+    }
+
+    public ArrayList<Funcao> buscaFuncao() {
+        return model.buscarFuncao();
     }
 }
