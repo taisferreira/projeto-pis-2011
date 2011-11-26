@@ -13,8 +13,11 @@ import dao.FuncionarioDao;
 import dao.MedicoDao;
 import dao.PacienteDao;
 import dao.UsuarioDao;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.Misc;
 import view.CadastrarConvenio;
 import view.CadastrarDespesa;
 import view.CadastrarFuncao;
@@ -50,7 +53,7 @@ public class Model {
     
     public void salvarDespesa(String taDescricao, Double tfValor, String pago, String tfCpf){
         DespesasDao dao = new DespesasDao(con);
-        Despesa desp = new Despesa(taDescricao, tfValor, pago, tfCpf);
+        Despesa desp = new Despesa(taDescricao, tfValor, pago, Misc.getDigitos(tfCpf));
         try {
             dao.cadDespesa(desp);
         } catch (DAOException ex) {
@@ -189,7 +192,7 @@ public class Model {
     
     
     public Usuario executarLogin(String cpf, String senha){
-        Usuario user = new Usuario(cpf, null, senha, 3);
+        Usuario user = new Usuario(Misc.getDigitos(cpf), null, senha, 3);
         UsuarioDao userDao = new UsuarioDao(con);
         Usuario foundUser = userDao.getUser(user);
         if( (foundUser.getUserCpf()==null) || !(foundUser.getUserPassword().equals(user.getUserPassword())) ){
@@ -205,5 +208,9 @@ public class Model {
 
     public void setCon(Conexao con) {
         this.con = con;
+    }
+
+    public ArrayList<Funcao> buscarFuncao() {
+        return new FuncaoDao(con).buscarFuncao();
     }
 }
