@@ -11,12 +11,6 @@
 package view;
 
 import control.Controler;
-import dao.Conexao;
-import dao.DAOException;
-import dao.MedicoDao;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Medico;
 
 /**
  *
@@ -49,9 +43,9 @@ public class CadastroMedico extends javax.swing.JFrame {
         tfSenha = new javax.swing.JPasswordField();
         tfCrm = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfTipo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jfCpf = new javax.swing.JFormattedTextField();
+        jcTipo = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastrar Médico"); // NOI18N
@@ -87,6 +81,8 @@ public class CadastroMedico extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        jcTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0-Administrador", "1-Usuário" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,13 +97,13 @@ public class CadastroMedico extends javax.swing.JFrame {
                             .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(tfCrm, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(tfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(61, Short.MAX_VALUE))
+                            .addComponent(jcTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(74, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btSalvar)
                         .addGap(18, 18, 18)
@@ -144,7 +140,7 @@ public class CadastroMedico extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfCrm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
@@ -160,7 +156,9 @@ private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_btCancelarActionPerformed
 
 private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-    controler.salvarMedico(tfCrm.getText(), jfCpf.getText(), tfNome.getText(), tfSenha.getPassword(), tfTipo.getText());
+    controler.salvarMedico(tfCrm.getText(), jfCpf.getText(), tfNome.getText(),
+            tfSenha.getPassword(), jcTipo.getItemAt(jcTipo.getSelectedIndex()).
+            toString().substring(0, 1));
     this.dispose();
 }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -173,10 +171,10 @@ private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JComboBox jcTipo;
     private javax.swing.JFormattedTextField jfCpf;
     private javax.swing.JTextField tfCrm;
     private javax.swing.JTextField tfNome;
     private javax.swing.JPasswordField tfSenha;
-    private javax.swing.JTextField tfTipo;
     // End of variables declaration//GEN-END:variables
 }
