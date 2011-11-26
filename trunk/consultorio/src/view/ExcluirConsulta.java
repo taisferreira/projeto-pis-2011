@@ -12,6 +12,7 @@
 package view;
 
 import control.ConsultaControler;
+import control.Controler;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -20,13 +21,17 @@ import javax.swing.JOptionPane;
  * @author tais
  */
 public class ExcluirConsulta extends javax.swing.JFrame {
+    private Controler controler;
     int medicoSelecionado = 0;
     boolean carregou_medicos = false;
     private ArrayList<Object> medicos = ConsultaControler.getAllMedicos();
 
-    /** Creates new form ExcluirConsulta */
-    public ExcluirConsulta() {
+    ExcluirConsulta(Controler controler) {
+        this.controler = controler;
         initComponents();
+    }
+
+    public ExcluirConsulta() {
     }
 
     /** This method is called from within the constructor to
@@ -150,7 +155,7 @@ public class ExcluirConsulta extends javax.swing.JFrame {
             ArrayList<Object> consultas =
                     ConsultaControler.selecionar_consulta_para_excluir(medico,cpf);
 
-            if(consultas.size() == 0){
+            if(consultas.isEmpty()){
                 label_avisos.setText("Nenhuma consulta foi encontrada");
             }
             else if(consultas.size() == 1){
@@ -204,18 +209,6 @@ public class ExcluirConsulta extends javax.swing.JFrame {
             else label_avisos.setText("Paciente não encontrado.");
         }
     }//GEN-LAST:event_botaoRemoverActionPerformed
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ExcluirConsulta().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoRemover;

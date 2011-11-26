@@ -74,6 +74,7 @@ public class Consultorio extends javax.swing.JFrame {
         mExcluir = new javax.swing.JMenu();
         miExcluirUsuario = new javax.swing.JMenuItem();
         miExcluirPaciente = new javax.swing.JMenuItem();
+        miExcluirConsulta = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -178,6 +179,15 @@ public class Consultorio extends javax.swing.JFrame {
             }
         });
         mExcluir.add(miExcluirPaciente);
+
+        miExcluirConsulta.setText("Consulta");
+        miExcluirConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miExcluirConsultaActionPerformed(evt);
+            }
+        });
+        mExcluir.add(miExcluirConsulta);
+        miExcluirConsulta.getAccessibleContext().setAccessibleName("Consulta");
 
         mbPrincipal.add(mExcluir);
 
@@ -347,6 +357,16 @@ private void miAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {
     });
 }//GEN-LAST:event_miAtualizarUsuarioActionPerformed
 
+private void miExcluirConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirConsultaActionPerformed
+    java.awt.EventQueue.invokeLater(new Runnable() {
+
+        @Override
+        public void run() {
+            new ExcluirConsulta(controler).setVisible(true);
+        }
+    });
+}//GEN-LAST:event_miExcluirConsultaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -369,6 +389,7 @@ private void miAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JMenuItem miCadastroFuncionario;
     private javax.swing.JMenuItem miCadastroMedico;
     private javax.swing.JMenuItem miDespesa;
+    private javax.swing.JMenuItem miExcluirConsulta;
     private javax.swing.JMenuItem miExcluirPaciente;
     private javax.swing.JMenuItem miExcluirUsuario;
     // End of variables declaration//GEN-END:variables
