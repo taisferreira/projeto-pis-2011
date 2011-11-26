@@ -7,6 +7,7 @@ package control;
 import model.Model;
 import model.Paciente;
 import model.Usuario;
+import util.Misc;
 
 
 /**
@@ -38,7 +39,7 @@ public class Controler {
     }
     
     public void salvarPaciente(String tfCpf, String tfNome, String tfEndereco, String tfTelefone){
-        model.salvarPaciente(tfCpf, tfNome, tfEndereco, tfTelefone);
+        model.salvarPaciente(Misc.getDigitos(tfCpf), tfNome, tfEndereco, Misc.getDigitos(tfTelefone));
     }
     
     public void salvarFuncionario(String tfCodFn,String nomeFn, String salario, String userCpf, String userName, char[] userPassword, String userType){
@@ -49,7 +50,7 @@ public class Controler {
         tmp = Double.parseDouble(salario);
         tfCodFnInt = Integer.parseInt(tfCodFn);
         userTypeInt = Integer.parseInt(userType);
-        model.salvarFuncionario(tfCodFnInt, nomeFn, tmp, userCpf, userName, password, userTypeInt);
+        model.salvarFuncionario(tfCodFnInt, nomeFn, tmp, Misc.getDigitos(userCpf), userName, password, userTypeInt);
     }
     
     public void salvarMedico(String tfCrm, String tfCpf,String tfNome, char[] tfSenha,String tfTipo){
@@ -57,7 +58,7 @@ public class Controler {
         String tfSenhaString;
         tfTipoInt = Integer.parseInt(tfTipo);
         tfSenhaString = new String(tfSenha);
-        model.salvarMedico(tfCrm, tfCpf, tfNome, tfSenhaString, tfTipoInt);
+        model.salvarMedico(tfCrm, Misc.getDigitos(tfCpf), tfNome, tfSenhaString, tfTipoInt);
     }
     
     
