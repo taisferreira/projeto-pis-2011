@@ -14,6 +14,8 @@ import control.Controler;
 import control.ConsultaControler;
 import control.Controler;
 import dao.Conexao;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import model.Usuario;
 import model.Model;
 
@@ -86,6 +88,11 @@ public class Consultorio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Consultorio");
         setName("consultorio"); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         mCadastrar.setText("Cadastrar");
 
@@ -299,7 +306,7 @@ private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
         public void run() {
             CadastrarDespesa fcad = new CadastrarDespesa(controler);
-            fcad.getTfCpf().setText(user.getUserCpf());
+            fcad.getJfCpf().setText(user.getUserCpf());
             fcad.setVisible(true);
         }
     });
@@ -357,8 +364,18 @@ private void miAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {
     });
 }//GEN-LAST:event_miAtualizarUsuarioActionPerformed
 
+<<<<<<< .mine
+private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    if(JOptionPane.showConfirmDialog(null, "Deseja realmente sair?")==0){
+        this.dispose();
+    } else {
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+    }
+}//GEN-LAST:event_formWindowClosing
+=======
 private void miExcluirConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirConsultaActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
+>>>>>>> .r20
 
         @Override
         public void run() {
