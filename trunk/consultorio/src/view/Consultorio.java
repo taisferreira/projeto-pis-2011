@@ -364,7 +364,6 @@ private void miAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {
     });
 }//GEN-LAST:event_miAtualizarUsuarioActionPerformed
 
-<<<<<<< .mine
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
     if(JOptionPane.showConfirmDialog(null, "Deseja realmente sair?")==0){
         this.dispose();
@@ -372,10 +371,9 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 }//GEN-LAST:event_formWindowClosing
-=======
+
 private void miExcluirConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirConsultaActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
->>>>>>> .r20
 
         @Override
         public void run() {
