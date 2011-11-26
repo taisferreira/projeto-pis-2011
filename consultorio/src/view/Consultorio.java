@@ -367,8 +367,6 @@ private void miAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
     if(JOptionPane.showConfirmDialog(null, "Deseja realmente sair?")==0){
         this.dispose();
-    } else {
-        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 }//GEN-LAST:event_formWindowClosing
 
