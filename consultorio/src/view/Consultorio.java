@@ -10,14 +10,10 @@
  */
 package view;
 
-import control.Controler;
 import control.ConsultaControler;
 import control.Controler;
-import dao.Conexao;
 import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
 import model.Usuario;
-import model.Model;
 
 /**
  *
@@ -76,11 +72,11 @@ public class Consultorio extends javax.swing.JFrame {
         mExcluir = new javax.swing.JMenu();
         miExcluirUsuario = new javax.swing.JMenuItem();
         miExcluirPaciente = new javax.swing.JMenuItem();
-        miExcluirConsulta = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        Remarcar = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuItemRemarcar = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        exibirAlterarDados = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -187,18 +183,9 @@ public class Consultorio extends javax.swing.JFrame {
         });
         mExcluir.add(miExcluirPaciente);
 
-        miExcluirConsulta.setText("Consulta");
-        miExcluirConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miExcluirConsultaActionPerformed(evt);
-            }
-        });
-        mExcluir.add(miExcluirConsulta);
-        miExcluirConsulta.getAccessibleContext().setAccessibleName("Consulta");
-
         mbPrincipal.add(mExcluir);
 
-        jMenu1.setText("Consulta");
+        Remarcar.setText("Consulta");
 
         jMenuItem3.setText("Marcar");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -206,15 +193,15 @@ public class Consultorio extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        Remarcar.add(jMenuItem3);
 
-        jMenuItem4.setText("Buscar");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuItemRemarcar.setText("Remarcar");
+        menuItemRemarcar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuItemRemarcarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        Remarcar.add(menuItemRemarcar);
 
         jMenuItem5.setText("Desmarcar");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -222,9 +209,17 @@ public class Consultorio extends javax.swing.JFrame {
                 jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        Remarcar.add(jMenuItem5);
 
-        mbPrincipal.add(jMenu1);
+        exibirAlterarDados.setText("Exibir/Alterar dados");
+        exibirAlterarDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exibirAlterarDadosActionPerformed(evt);
+            }
+        });
+        Remarcar.add(exibirAlterarDados);
+
+        mbPrincipal.add(Remarcar);
 
         jMenu2.setText("Relatórios");
 
@@ -285,6 +280,7 @@ private void miCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt
 private void miCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroClienteActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
         public void run() {
             new CadastrarPaciente(controler).setVisible(true);
         }
@@ -304,6 +300,7 @@ private void miCadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
         public void run() {
             CadastrarDespesa fcad = new CadastrarDespesa(controler);
             fcad.getJfCpf().setText(user.getUserCpf());
@@ -340,9 +337,9 @@ private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     ConsultaControler.desmarcar_consulta();
 }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-    ConsultaControler.buscar_consulta();
-}//GEN-LAST:event_jMenuItem4ActionPerformed
+private void menuItemRemarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRemarcarActionPerformed
+    ConsultaControler.buscar_para_remarcar();
+}//GEN-LAST:event_menuItemRemarcarActionPerformed
 
 private void miAtualizarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarPacienteActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -370,22 +367,16 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     }
 }//GEN-LAST:event_formWindowClosing
 
-private void miExcluirConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirConsultaActionPerformed
-    java.awt.EventQueue.invokeLater(new Runnable() {
-
-        @Override
-        public void run() {
-            new ExcluirConsulta(controler).setVisible(true);
-        }
-    });
-}//GEN-LAST:event_miExcluirConsultaActionPerformed
+private void exibirAlterarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirAlterarDadosActionPerformed
+    ConsultaControler.exibir_alterar_consulta();
+}//GEN-LAST:event_exibirAlterarDadosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu Remarcar;
+    private javax.swing.JMenuItem exibirAlterarDados;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -394,6 +385,7 @@ private void miExcluirConsultaActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JMenu mCadastrar;
     private javax.swing.JMenu mExcluir;
     private javax.swing.JMenuBar mbPrincipal;
+    private javax.swing.JMenuItem menuItemRemarcar;
     private javax.swing.JMenuItem miAtualizarPaciente;
     private javax.swing.JMenuItem miAtualizarUsuario;
     private javax.swing.JMenuItem miCadConvenio;
@@ -402,7 +394,6 @@ private void miExcluirConsultaActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JMenuItem miCadastroFuncionario;
     private javax.swing.JMenuItem miCadastroMedico;
     private javax.swing.JMenuItem miDespesa;
-    private javax.swing.JMenuItem miExcluirConsulta;
     private javax.swing.JMenuItem miExcluirPaciente;
     private javax.swing.JMenuItem miExcluirUsuario;
     // End of variables declaration//GEN-END:variables

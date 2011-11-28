@@ -37,9 +37,27 @@ public class ConsultaDAO {
        return conn;
    }
 /*-------------- CONSULTAS NO BANCO -----------------*/
+   public void atualizar(Consulta consulta){
+        Statement stm;
+
+       String atualizar_consulta = "update consulta set idPagamento="
+               +consulta.getPagamento().getIdPag()+"," +
+               " dia='"+consulta.getDia().substring(0, 19)+"'," +
+               "idProntuario="+consulta.getProtuario().getIdPront()+
+               " where codigo="+consulta.getCodigoConsulta()+";";
+        System.out.println(atualizar_consulta);
+        try {
+            stm = conn.createStatement();
+            stm.executeUpdate(atualizar_consulta);
+
+	} catch (SQLException e) {
+            e.printStackTrace();
+	}
+    }
+
     public int salvar(Consulta c){
 
-        Statement stm;
+       Statement stm;
 
        String insere_consulta = "insert into consulta (idProntuario, cpf_Paciente," +
             " crm_Medico, dia, idPagamento) values ("+c.getProtuario().getIdPront()+"" +
@@ -111,20 +129,26 @@ public class ConsultaDAO {
 
         String query = "";
 
-       if(crm_medico == null || crm_medico.isEmpty()){
-           if (cpf_paciente == null || cpf_paciente.isEmpty()){
-               query = "SELECT * " +
-                       "FROM consulta " +
-                       "WHERE cpf_Paciente="+cpf_paciente+" " +
-                       "AND crm_Medico="+crm_medico+";";
+       if(crm_medico == null || crm_medico.isEmpty()){/*Sem medico*/
+           if (cpf_paciente == null || cpf_paciente.isEmpty()){/*Esm paciente*/
+               query = "SELECT * FROM consulta;";
            }
-           else{
+           else{/*So paciente*/
                query = "SELECT * FROM consulta WHERE " +
                        "cpf_Paciente="+cpf_paciente+";";
            }
        }
-       else {
-           query = "SELECT * FROM consulta WHERE crm_Medico="+crm_medico+";";
+       else {/*Com médico*/
+
+            if(cpf_paciente == null || cpf_paciente.isEmpty()){/*e sem paciente*/
+                 query = "SELECT * FROM consulta WHERE crm_Medico="+crm_medico+";";
+            }
+            else{/*e com paciente*/
+                query = "SELECT * " +
+                       "FROM consulta " +
+                       "WHERE cpf_Paciente="+cpf_paciente+" " +
+                       "AND crm_Medico="+crm_medico+";";
+            }
        }
 
        ResultSet rs;

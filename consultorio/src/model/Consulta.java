@@ -6,6 +6,8 @@
 package model;
 
 import dao.ConsultaDAO;
+import dao.PagamentoDAO;
+import dao.ProntuarioDAO;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 public class Consulta {
     /*Atributos da entidade Consulta*/
     private long codigoConsulta;
-    private Prontuario Prontuario;
+    private Prontuario prontuario;
     private String pacienteCPF;
     private String medicoCRM;
     private Timestamp dia;
@@ -28,8 +30,37 @@ public class Consulta {
         return ConsultaDAO.getInstance().horarioEstaDisponivel(this);
     }
 
-    public int marcarConsulta(){
-        return ConsultaDAO.getInstance().salvar(this);
+    public void marcarConsulta(){
+        ConsultaDAO.getInstance().salvar(this);
+        ArrayList<Consulta> ac = ConsultaDAO.getInstance().buscar_CPF_CRM(medicoCRM, pacienteCPF);
+
+                /*.buscarIntervalo(dia.toString().substring(0, 10)
+                , dia.toString().substring(0, 10), this);*/
+
+        if(ac.size()==0){
+            System.out.println("Falha ao salvar Consulta");
+        }
+        else{
+            Consulta c = ac.get(ac.size()-1);
+            codigoConsulta = c.getCodigoConsulta();
+            pagamento.setCodigoConsulta(codigoConsulta);
+            prontuario.setCodigoConsulta(codigoConsulta);
+
+            ProntuarioDAO.getInstance().salvar(prontuario);
+            prontuario = ProntuarioDAO.getInstance().buscar(codigoConsulta);
+            if(prontuario == null){
+                System.out.println("Falha ao salvar prontuario");
+            }
+            
+            PagamentoDAO.getInstance().salvar(pagamento);
+            pagamento = PagamentoDAO.getInstance().buscar(codigoConsulta);
+            if(pagamento == null){
+                System.out.println("Falha ao salvar pagamento");
+            }
+
+            this.atualizar();
+        }
+
     }
 
     public void removerConsulta(){
@@ -64,7 +95,7 @@ public class Consulta {
     }
 
     public Prontuario getProtuario() {
-        return Prontuario;
+        return prontuario;
     }
 
     public String getMedicoCRM() {
@@ -81,6 +112,7 @@ public class Consulta {
 
     /* Esperando string do tipo 'yyyy-mm-dd hh:mm:ss' */
     public void setDia(String timestamp) {
+        System.out.println(timestamp);
         this.dia = java.sql.Timestamp.valueOf(timestamp);
     }
 
@@ -90,7 +122,7 @@ public class Consulta {
     }
 
     public void setProtuario(Prontuario idProtuario) {
-        this.Prontuario = idProtuario;
+        this.prontuario = idProtuario;
     }
 
     public void setMedicoCRM(String medicoCRM) {
@@ -103,10 +135,13 @@ public class Consulta {
 
     @Override
     public String toString(){
-        return "Paciente: "+pacienteCPF+"\nMedico: "+medicoCRM+"\nAgendamento: " +
+        return "Paciente: "+pacienteCPF+" \nMedico: "+medicoCRM+" \nAgendamento: " +
                 ""+dia.toString().substring(8, 10)+"/" +
                 ""+dia.toString().substring(5, 7)+"/"+dia.toString().substring(0, 4)
                 +" "+dia.toString().substring(11, 19);
     }
 
+     public void atualizar(){
+        ConsultaDAO.getInstance().atualizar(this);
+    }
 }

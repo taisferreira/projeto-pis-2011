@@ -42,11 +42,21 @@ private static PagamentoDAO pagamentoDAO = null;
     /*-------------- CONSULTAS NO BANCO -----------------*/
     public int salvar(Pagamento c){
         System.out.println("Pagamento.salvar");
+        String query;
 
         Statement stm;
-        String query = "INSERT INTO pagamento(codigoConsulta, idConv, valor, vencimento)" +
-                " VALUES ("+c.getCodigoConsulta()+","+c.getIdConv()+", " +
-                ""+c.getValor()+", \""+c.getVencimento()+"\" );";
+        Convenio convenio = c.getIdConv();
+        if(convenio == null){
+            query = "INSERT INTO pagamento (codigoConsulta, idConv, valor, vencimento)" +
+                " VALUES ("+c.getCodigoConsulta()+",0 , " +
+                ""+c.getValor()+", '"+c.getVencimento()+"');";
+        }
+        else{
+            query = "INSERT INTO pagamento (codigoConsulta, idConv, valor, vencimento)" +
+                " VALUES ("+c.getCodigoConsulta()+", '"+convenio.getCnpj()+"', " +
+                ""+c.getValor()+", '"+c.getVencimento()+"');";
+        }
+        
 
 	try {
             stm = conn.createStatement();

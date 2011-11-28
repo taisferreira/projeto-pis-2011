@@ -12,7 +12,6 @@
 package view;
 
 import control.ConsultaControler;
-import control.Controler;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -21,17 +20,13 @@ import javax.swing.JOptionPane;
  * @author tais
  */
 public class ExcluirConsulta extends javax.swing.JFrame {
-    private Controler controler;
     int medicoSelecionado = 0;
     boolean carregou_medicos = false;
     private ArrayList<Object> medicos = ConsultaControler.getAllMedicos();
 
-    ExcluirConsulta(Controler controler) {
-        this.controler = controler;
-        initComponents();
-    }
-
+    /** Creates new form ExcluirConsulta */
     public ExcluirConsulta() {
+        initComponents();
     }
 
     /** This method is called from within the constructor to
@@ -121,7 +116,6 @@ public class ExcluirConsulta extends javax.swing.JFrame {
 
     private void jcb_lista_medicosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcb_lista_medicosItemStateChanged
        medicoSelecionado = jcb_lista_medicos.getSelectedIndex();
-       System.out.println(jcb_lista_medicos.getItemAt(medicoSelecionado));
 }//GEN-LAST:event_jcb_lista_medicosItemStateChanged
 
     private void jcb_lista_medicosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcb_lista_medicosMousePressed
@@ -139,7 +133,7 @@ public class ExcluirConsulta extends javax.swing.JFrame {
 
     private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
         Object medico;
-        String cpf;
+        //String cpf;
         if(ConsultaControler.pacienteEhValido(jtf_cpfPaciente.getText())){
             if(medicoSelecionado == 0){
                 medico = null;
@@ -147,30 +141,30 @@ public class ExcluirConsulta extends javax.swing.JFrame {
             else{
                 medico = medicos.get(medicoSelecionado-1);
             }
-            if(jtf_cpfPaciente.getText().isEmpty()){
+            /*if(jtf_cpfPaciente.getText().isEmpty()){
                 cpf = null;
             }
-            else cpf = jtf_cpfPaciente.getText();
+            else cpf = jtf_cpfPaciente.getText();*/
 
             ArrayList<Object> consultas =
-                    ConsultaControler.selecionar_consulta_para_excluir(medico,cpf);
+                    ConsultaControler.selecionar_consulta_para_excluir(medico,jtf_cpfPaciente.getText());
 
-            if(consultas.isEmpty()){
+            if(consultas.size() == 0){
                 label_avisos.setText("Nenhuma consulta foi encontrada");
             }
             else if(consultas.size() == 1){
                 int n = JOptionPane.showConfirmDialog(this,
                         ""+consultas.get(0).toString()+
-                        "Tem certeza de deseja exluir esta consulta?",
+                        "\nTem certeza que deseja exluir esta consulta?",
                         "Excluir Consulta",JOptionPane.YES_NO_OPTION);
                 if(n == JOptionPane.YES_OPTION){
                     ConsultaControler.exclui_consulta(consultas.get(0));
                     label_avisos.setText("Consulta excluída!.");
+                    this.dispose();
                 }
                 else label_avisos.setText("Consulta inalterada.");
             }
             else{
-                //String[] consultas = { "A", "B", "C", "D", "E", "F" };
                 Object[] options = new Object[consultas.size()];
                 int i;
 
@@ -191,11 +185,12 @@ public class ExcluirConsulta extends javax.swing.JFrame {
 
                      int n = JOptionPane.showConfirmDialog(this,
                             ""+consultas.get(in).toString()+
-                            "\nTem certeza de deseja exluir esta consulta?",
+                            "\nTem certeza que deseja exluir esta consulta?",
                             "Excluir Consulta",JOptionPane.YES_NO_OPTION);
                     if(n == JOptionPane.YES_OPTION){
                         ConsultaControler.exclui_consulta(consultas.get(in));
                         label_avisos.setText("Consulta excluída!.");
+                        this.dispose();
                     }
                     else label_avisos.setText("Consulta inalterada.");
                     }
@@ -209,6 +204,18 @@ public class ExcluirConsulta extends javax.swing.JFrame {
             else label_avisos.setText("Paciente não encontrado.");
         }
     }//GEN-LAST:event_botaoRemoverActionPerformed
+
+    /**
+    * @param args the command line arguments
+    */
+  /*  public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ExcluirConsulta().setVisible(true);
+            }
+        });
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoRemover;
