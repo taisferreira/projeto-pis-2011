@@ -12,7 +12,7 @@
 package view;
 
 import control.ConsultaControler;
-import java.security.Timestamp;
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -26,8 +26,6 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private ArrayList<Object> convenios = ConsultaControler.getAllConvenios();
     private int convenioSelecionado = 0;
     private int medicoSelecionado = 0;
-
-    private Timestamp diaSelecionado = null;
 
     /** Creates new form MarcarConsulta */
     public MarcarConsulta() {
@@ -55,18 +53,26 @@ public class MarcarConsulta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jlConvenio = new javax.swing.JLabel();
         jcb_seleciona_convenio = new javax.swing.JComboBox();
-        showDescConv = new javax.swing.JLabel();
+        desconto = new javax.swing.JLabel();
         labelValorConsulta = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jtf_get_valCons = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         botao_marcar_consulta = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        textoMarcarConsulta = new javax.swing.JLabel();
+        dataVencimento = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MARCAR CONSULTA");
 
         dadosPaciente.setText("CPF do Paciente");
+
+        jtf_cpfPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtf_cpfPacienteMouseClicked(evt);
+            }
+        });
 
         dadosMedico.setText("Medico");
 
@@ -114,11 +120,11 @@ public class MarcarConsulta extends javax.swing.JFrame {
             }
         });
 
-        showDescConv.setText("Desconto");
+        desconto.setText("Desconto");
 
         labelValorConsulta.setText("Valor da Consulta (R$)");
 
-        jLabel3.setText("Vencimento (dd/mm/yyyy)");
+        jLabel3.setText("Vencimento");
 
         botao_marcar_consulta.setText("marcar consulta");
         botao_marcar_consulta.addActionListener(new java.awt.event.ActionListener() {
@@ -127,13 +133,28 @@ public class MarcarConsulta extends javax.swing.JFrame {
             }
         });
 
+        dataVencimento.setText("Selecione a data");
+        dataVencimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataVencimentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(277, Short.MAX_VALUE)
+                .addComponent(botao_marcar_consulta)
+                .addGap(261, 261, 261))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(105, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -159,40 +180,38 @@ public class MarcarConsulta extends javax.swing.JFrame {
                                 .addComponent(jb_select_horario))
                             .addComponent(jLabel1))
                         .addGap(100, 100, 100))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(243, 243, 243)
-                        .addComponent(botao_marcar_consulta))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jlConvenio)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jcb_seleciona_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(labelValorConsulta)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jtf_get_valCons, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(22, 22, 22)))
-                                        .addGap(56, 56, 56)
-                                        .addComponent(showDescConv))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE))
+                                .addComponent(jlConvenio)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcb_seleciona_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(62, 62, 62)
+                                .addComponent(dataVencimento, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelValorConsulta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jtf_get_valCons, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(39, 39, 39)
+                        .addComponent(desconto)
+                        .addGap(193, 193, 193))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(99, 99, 99)
+                .addComponent(textoMarcarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap(569, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,18 +240,22 @@ public class MarcarConsulta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlConvenio)
                     .addComponent(jcb_seleciona_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(showDescConv))
+                    .addComponent(desconto))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelValorConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtf_get_valCons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(dataVencimento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(textoMarcarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(8, 8, 8)
                 .addComponent(botao_marcar_consulta)
                 .addContainerGap())
         );
@@ -251,6 +274,7 @@ public class MarcarConsulta extends javax.swing.JFrame {
 
             carregou_medicos = true;
         }
+        dadosMedico.setForeground(Color.black);
     }//GEN-LAST:event_jcb_lista_medicosMousePressed
 
     private void jcb_lista_medicosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcb_lista_medicosItemStateChanged
@@ -265,15 +289,96 @@ public class MarcarConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_jcb_lista_medicosItemStateChanged
 
     private void jb_select_diaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_select_diaActionPerformed
-        jb_select_dia.setText(ConsultaControler.getDay());
+        ConsultaControler.selectDay(null, jb_select_dia);
+        jb_select_dia.setForeground(Color.black);
+        jb_select_horario.setEnabled(true);
     }//GEN-LAST:event_jb_select_diaActionPerformed
 
     private void jb_select_horarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_select_horarioActionPerformed
-        // TODO add your handling code here:
+        if(jb_select_dia.getText().equals("Selecione a data")==false){
+            ConsultaControler.selectHour(jb_select_horario,
+                    medicos.get(medicoSelecionado-1));
+            jb_select_horario.setForeground(Color.black);
+        }
+        else{
+            jb_select_dia.setForeground(Color.red);
+        }
     }//GEN-LAST:event_jb_select_horarioActionPerformed
 
     private void botao_marcar_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_marcar_consultaActionPerformed
-        // TODO add your handling code here:
+        String mensagem = "";
+        if(this.getCpfPaciente().isEmpty() == false
+                && ConsultaControler.pacienteEhValido(this.getCpfPaciente())){
+            dadosPaciente.setForeground(Color.black);
+            
+        }
+        else{
+            if(mensagem.isEmpty()){
+                mensagem = "Digite um CPF de paciente válido";
+            }
+            else{
+                mensagem = mensagem+"; Digite um CPF de paciente válido";
+            }
+            dadosPaciente.setForeground(Color.red);
+        }
+        if(medicoSelecionado == 0){
+            if(mensagem.isEmpty()){
+                mensagem = "Selecione um médico";
+            }
+            else{
+                 mensagem = mensagem + "; Selecione um médico";
+            }
+            jcb_lista_medicos.setForeground(Color.red);
+        }
+        else{
+            jcb_lista_medicos.setForeground(Color.black);
+        }
+
+        if(jb_select_dia.isEnabled()
+                    && jb_select_dia.getText().isEmpty() == false){
+            if(jb_select_horario.isEnabled() == false
+                    || jb_select_horario.getText().isEmpty()){
+                jLabel1.setForeground(Color.red);
+                if(mensagem.isEmpty()){
+                    mensagem = "Selecione um horario";
+                }
+                else{
+                     mensagem = mensagem + "; Selecione um horario";
+                }
+            }
+            else{
+                jLabel1.setForeground(Color.black);
+            }
+        }
+        else{
+            jLabel1.setForeground(Color.red);
+            if(mensagem.isEmpty()){
+                mensagem = "Selecione uma data e um horario";
+            }
+            else{
+                 mensagem = mensagem + "; Selecione uma data e um horario";
+            }
+        }
+
+        if(jtf_get_valCons.getText().isEmpty()){
+            labelValorConsulta.setForeground(Color.red);
+            if(mensagem.isEmpty()){
+                mensagem = "Insira o valor da consulta";
+            }
+            else{
+                 mensagem = mensagem + "; Insira o valor da consulta";
+            }
+        }
+        else{
+            labelValorConsulta.setForeground(Color.black);
+        }
+
+        textoMarcarConsulta.setText(mensagem);
+
+        if(textoMarcarConsulta.getText().isEmpty()){
+            ConsultaControler.salvarConsulta(this);
+            this.dispose();
+        }
     }//GEN-LAST:event_botao_marcar_consultaActionPerformed
 
     private void jcb_seleciona_convenioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcb_seleciona_convenioMousePressed
@@ -292,31 +397,55 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private void jcb_seleciona_convenioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcb_seleciona_convenioItemStateChanged
        convenioSelecionado = jcb_seleciona_convenio.getSelectedIndex();
        //System.out.println(jcb_seleciona_convenio.getItemAt(convenioSelecionado));
+       if(convenioSelecionado > 0){
+           ConsultaControler.setConvenioSelecionado(convenios.get(convenioSelecionado-1));
+           desconto.setText("Desconto: "+ConsultaControler.getDescontoConvenio()+"%");
+           if(ConsultaControler.getDescontoConvenio() >= 100){
+               dataVencimento.setEnabled(false);
+           }
+           else{
+               dataVencimento.setEnabled(true);
+           }
+       }
+       else{
+           desconto.setText("Desconto: 0%");
+           dataVencimento.setEnabled(true);
+       }
     }//GEN-LAST:event_jcb_seleciona_convenioItemStateChanged
+
+    private void jtf_cpfPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtf_cpfPacienteMouseClicked
+        dadosPaciente.setForeground(Color.black);
+    }//GEN-LAST:event_jtf_cpfPacienteMouseClicked
+
+    private void dataVencimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataVencimentoActionPerformed
+        ConsultaControler.selectDiaVencimento(null, dataVencimento);
+}//GEN-LAST:event_dataVencimentoActionPerformed
 
     /**
     * @param args the command line arguments
     */
-    public static void main(String args[]) {
+  /*  public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new MarcarConsulta().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_marcar_consulta;
     private javax.swing.JLabel dadosMedico;
     private javax.swing.JLabel dadosPaciente;
+    private javax.swing.JButton dataVencimento;
+    private javax.swing.JLabel desconto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jb_select_dia;
     private javax.swing.JButton jb_select_horario;
     private javax.swing.JComboBox jcb_lista_medicos;
@@ -325,7 +454,58 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private javax.swing.JTextField jtf_cpfPaciente;
     private javax.swing.JTextField jtf_get_valCons;
     private javax.swing.JLabel labelValorConsulta;
-    private javax.swing.JLabel showDescConv;
+    private javax.swing.JLabel textoMarcarConsulta;
     // End of variables declaration//GEN-END:variables
 
+    public String getCpfPaciente(){
+        return jtf_cpfPaciente.getText();
+    }
+
+    public String getVencimento(){
+        return dataVencimento.getText().substring(6, 10)+"-"+
+                dataVencimento.getText().substring(3, 5)+"-"+
+                dataVencimento.getText().substring(0, 2);
+    }
+
+    public Object getConvenio(){
+        if(convenioSelecionado > 0){
+            return convenios.get(convenioSelecionado-1);
+        }
+        else{
+            return null;
+        }
+    }
+
+    public double getValorConsulta() {
+        String valorConsulta = jtf_get_valCons.getText();
+        char[] c = valorConsulta.toCharArray();
+        boolean divide = false;
+        int i;
+        double valor = 0;
+        for(i=0; i<valorConsulta.length(); i++){
+            if(c[i] != '.' && c[i] != ','){
+                valor = valor*10 + Integer.parseInt(c[i]+"");
+            }
+            else{
+                //valor = valor*100;
+                divide = true;
+                if(i == valorConsulta.length()-3){
+                    valor = valor*10 + Integer.parseInt(c[i+1]+"");
+                    valor = valor*10 + Integer.parseInt(c[i+2]+"");
+                    i = valorConsulta.length();
+                }
+                else{
+                    if(i == valorConsulta.length()-2){
+                        valor = valor*10 + Integer.parseInt(c[i+1]+"");
+                        valor = valor*10;
+                        i = valorConsulta.length();
+                    }
+                }
+            }
+        }
+        if(divide){
+            return valor/100;
+        }
+        else return valor;
+    }
 }

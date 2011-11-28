@@ -22,6 +22,10 @@ public class MedicoDao {
                 "select * from medico md, usuario us where"
             + " md.cpf_Usuario = us.cpf and"
             + " us.cpf=(?)";
+
+    private static final String SQL_FIND_DOCTOR_CRM =
+            "select nome, crm from medico md, usuario us where"
+            + " md.cpf_Usuario = us.cpf and md.crm = (?)";
     
     private static final String SQL_CREATE_DOCTOR =
             "insert into medico (CRM, CPF_USUARIO) values ((?),(?))";
@@ -40,6 +44,27 @@ public class MedicoDao {
         this.conexao = new Conexao();
     }
     
+    public Medico buscar(String crm){
+        Medico medico = new Medico(null, null, null, null, Integer.SIZE);
+        Connection c;
+        ResultSet rs;
+        PreparedStatement pst;
+        try{
+            c = conexao.getCon();
+            rs = null;
+            pst = c.prepareStatement(SQL_FIND_DOCTOR_CRM);
+            pst.setString(1, crm);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                medico.setCrm(rs.getString("crm"));
+                medico.setUserName(rs.getString("nome"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return medico;
+    }
+
     public Medico findDoctor(Medico user){
         Medico medico = new Medico(null, null, null, null, Integer.SIZE);
         Connection c;

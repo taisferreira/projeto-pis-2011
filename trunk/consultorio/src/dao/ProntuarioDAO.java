@@ -41,28 +41,17 @@ public class ProntuarioDAO {
     }
 
     /*-------------- CONSULTAS NO BANCO -----------------*/
-    public int salvar(Prontuario p, Medicacao m){
-        System.out.println("Prontuario.salvar");
-
+    public int salvar(Prontuario p){
         Statement stm;
 
-        MedicacaoDAO.getInstance().salvar(m);
-
         String query1 = "INSERT INTO prontuario (diagnostico, sintomas, codigoConsulta)" +
-                " VALUES (\""+p.getDiagnostico()+"\", \""+p.getSintomas()+"" +
-                "\", "+p.getCodigoConsulta()+");";
-
-        m = MedicacaoDAO.getInstance().buscar(m.getDescricao()).get(0);
-        p = buscar(p.getCodigoConsulta()).get(0);
-
-        String query2 = "INSERT INTO medicacao_prontuario (id_medicacao, id_prontuario)" +
-                " VALUES ("+m.getIdMedicacao()+", "+p.getIdPront()+");";
+                " VALUES ('"+p.getDiagnostico()+"', '"+p.getSintomas()+"'" +
+                ", "+p.getCodigoConsulta()+");";
 
 
 	try {
             stm = conn.createStatement();
             stm.executeUpdate(query1);
-            stm.executeUpdate(query2);
 	} catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -71,16 +60,14 @@ public class ProntuarioDAO {
         return 1;
     }
 
-    public ArrayList<Prontuario> buscar (long id_consulta){
-        ArrayList<Prontuario> a = new ArrayList<Prontuario>();
+    public Prontuario buscar (long id_consulta){
         /*Alterar consulta no banco aqui*/
-       String query = "SELECT * FROM convenio WHERE codigoConsulta="+id_consulta+";";
+       String query = "SELECT * FROM prontuario WHERE codigoConsulta="+id_consulta+";";
 
        ResultSet rs;
        Statement stm;
        Prontuario c = null;
 
-        System.out.println("Prontuario.buscar");
         try {
             stm = conn.createStatement();
             rs = stm.executeQuery(query);
@@ -97,7 +84,7 @@ public class ProntuarioDAO {
             e.printStackTrace();
 	}
 
-        return a;
+        return c;
     }
 
      public void remover(Prontuario c){
