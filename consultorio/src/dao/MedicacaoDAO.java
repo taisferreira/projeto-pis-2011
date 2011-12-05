@@ -4,7 +4,6 @@ package dao;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Medicacao;
@@ -14,7 +13,7 @@ import model.Medicacao;
  * @author tais
  */
 public class MedicacaoDAO {
-private static MedicacaoDAO medicamentoDAO = null;
+    private static MedicacaoDAO medicamentoDAO = null;
     private Connection conn;
 
     /*Evitar de ficar criando classes DAO.
@@ -37,11 +36,10 @@ private static MedicacaoDAO medicamentoDAO = null;
 
     /*-------------- CONSULTAS NO BANCO -----------------*/
     public int salvar(Medicacao c){
-        System.out.println("medicacao.salvar");
 
         Statement stm;
         String query = "INSERT INTO medicacao(descricao, posologia, duracao)" +
-                " VALUES ("+c.getDescricao()+", \""+c.getPosologia()+"\", "+c.getDuracao()+");";
+                " VALUES ('"+c.getDescricao()+"', '"+c.getPosologia()+"', '"+c.getDuracao()+"');";
 
 	try {
             stm = conn.createStatement();
@@ -69,16 +67,15 @@ private static MedicacaoDAO medicamentoDAO = null;
 	}
     }
 
-    public ArrayList<Medicacao> buscar (String descricao){
-        ArrayList<Medicacao> a = new ArrayList<Medicacao>();
+    public Medicacao buscarDescricao (String descricao){
         /*Alterar consulta no banco aqui*/
-       String query = "SELECT * FROM medicacao WHERE descricao="+descricao+";";
+       String query = "SELECT * FROM medicacao WHERE descricao='"+descricao+"';";
 
        ResultSet rs;
        Statement stm;
        Medicacao c = null;
 
-        System.out.println("medicacao.buscar");
+
         try {
             stm = conn.createStatement();
             rs = stm.executeQuery(query);
@@ -95,6 +92,34 @@ private static MedicacaoDAO medicamentoDAO = null;
             e.printStackTrace();
 	}
 
-        return a;
+        return c;
+    }
+
+
+    public Medicacao buscarId (Long id){
+        /*Alterar consulta no banco aqui*/
+       String query = "SELECT * FROM medicacao WHERE id="+id+";";
+
+       ResultSet rs;
+       Statement stm;
+       Medicacao c = null;
+
+        try {
+            stm = conn.createStatement();
+            rs = stm.executeQuery(query);
+
+            if(rs.next()){
+                c = new Medicacao();
+                c.setIdMedicacao(rs.getLong(1));
+                c.setDescricao(rs.getString(2));
+                c.setPosologia(rs.getString(3));
+                c.setDuracao(rs.getString(4));
+            }
+
+	} catch (Exception e) {
+            e.printStackTrace();
+	}
+
+        return c;
     }
 }

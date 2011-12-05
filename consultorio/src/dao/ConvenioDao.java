@@ -22,6 +22,9 @@ public class ConvenioDao {
 
         private static final String SQL_SELECT_ALLCONVENIOS =
             "SELECT * FROM convenio";
+
+        private static final String BUSCAR_CONVENIOS =
+            "SELECT * FROM convenio WHERE CNPJ = '(?)'";
     
     private Conexao conexao;
     
@@ -99,5 +102,34 @@ public class ConvenioDao {
 
         }
         return a;
+    }
+
+    public Convenio getConvenio(String cnpj){
+        ArrayList<Object> a = new ArrayList<Object>();
+        Connection c;
+        PreparedStatement ps;
+        ResultSet rs;
+        Convenio convenio = null;
+
+        try {
+            c = new Conexao().getCon();
+
+            ps = c.prepareStatement(SQL_SELECT_ALLCONVENIOS);
+            ps.setString(1, cnpj);
+
+            rs = ps.executeQuery();
+
+            if (rs.next()){
+                convenio = new Convenio();
+                convenio.setCnpj(rs.getString("CNPJ"));
+                convenio.setNome(rs.getString("NOME"));
+                convenio.setDesconto(rs.getDouble("desconto"));
+                a.add(convenio);
+            }
+
+        } catch (Exception sqlx) {
+
+        }
+        return convenio;
     }
 }

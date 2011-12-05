@@ -147,7 +147,7 @@ public class ExcluirConsulta extends javax.swing.JFrame {
             else cpf = jtf_cpfPaciente.getText();*/
 
             ArrayList<Object> consultas =
-                    ConsultaControler.selecionar_consulta_para_excluir(medico,jtf_cpfPaciente.getText());
+                    ConsultaControler.buscar_lista_consultas(medico,jtf_cpfPaciente.getText());
 
             if(consultas.size() == 0){
                 label_avisos.setText("Nenhuma consulta foi encontrada");

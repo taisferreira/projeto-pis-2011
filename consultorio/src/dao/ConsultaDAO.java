@@ -45,7 +45,6 @@ public class ConsultaDAO {
                " dia='"+consulta.getDia().substring(0, 19)+"'," +
                "idProntuario="+consulta.getProtuario().getIdPront()+
                " where codigo="+consulta.getCodigoConsulta()+";";
-        System.out.println(atualizar_consulta);
         try {
             stm = conn.createStatement();
             stm.executeUpdate(atualizar_consulta);
@@ -63,7 +62,6 @@ public class ConsultaDAO {
             " crm_Medico, dia, idPagamento) values ("+c.getProtuario().getIdPront()+"" +
             ", '"+c.getPacienteCPF()+"','"+c.getMedicoCRM()+"','"+c.getDia().substring(0, 19)+"'," +
             ""+c.getPagamento().getIdPag()+");";
-        System.out.println(insere_consulta);
         
 	try {
             stm = conn.createStatement();
@@ -80,11 +78,15 @@ public class ConsultaDAO {
        Statement stm;
        
        /*Alterar consulta no banco aqui*/
-       String query = "DELETE FROM consulta WHERE codigo="+c.getCodigoConsulta()+";";
+       String query1 = "DELETE FROM consulta WHERE codigo="+c.getCodigoConsulta()+";";
+       String query2 = "DELETE FROM prontuario WHERE codigoConsulta="+c.getCodigoConsulta()+";";
+       String query3 = "DELETE FROM pagamento WHERE codigoConsulta="+c.getCodigoConsulta()+";";
 
 	try {
             stm = conn.createStatement();
-            stm.executeUpdate(query);
+            stm.executeUpdate(query1);
+            stm.executeUpdate(query2);
+            stm.executeUpdate(query3);
 	} catch (SQLException e) {
             e.printStackTrace();
 	}
@@ -105,15 +107,14 @@ public class ConsultaDAO {
             if(rs.next()){
                 c = new Consulta();
 		c.setCodigoConsulta(rs.getLong(1));
-                c.setProtuario(new Prontuario());
-                c.getProtuario().setCodigoConsulta(c.getCodigoConsulta());
-                c.getProtuario().setIdPront(rs.getInt(2));
+
+                c.setProtuario(ProntuarioDAO.getInstance().buscar(c.getCodigoConsulta()));
+
                 c.setPacienteCPF(rs.getString(3));
                 c.setMedicoCRM(rs.getString(4));
                 c.setDia(rs.getString(5));
-                c.setPagamento(new Pagamento());
-                c.getPagamento().setCodigoConsulta(c.getCodigoConsulta());
-                c.getPagamento().setIdPag(rs.getInt(6));
+
+                c.setPagamento(PagamentoDAO.getInstance().buscar(c.getCodigoConsulta()));
             }
 
 	} catch (SQLException e) {
@@ -161,17 +162,15 @@ public class ConsultaDAO {
             rs = stm.executeQuery(query);
 
             while(rs.next()){
-		c = new Consulta();
+                c = new Consulta();
 		c.setCodigoConsulta(rs.getLong(1));
-                c.setProtuario(new Prontuario());
-                c.getProtuario().setCodigoConsulta(c.getCodigoConsulta());
-                c.getProtuario().setIdPront(rs.getInt(2));
+
+                c.setProtuario(ProntuarioDAO.getInstance().buscar(c.getCodigoConsulta()));
+
                 c.setPacienteCPF(rs.getString(3));
                 c.setMedicoCRM(rs.getString(4));
                 c.setDia(rs.getString(5));
-                c.setPagamento(new Pagamento());
-                c.getPagamento().setCodigoConsulta(c.getCodigoConsulta());
-                c.getPagamento().setIdPag(rs.getInt(6));
+                c.setPagamento(PagamentoDAO.getInstance().buscar(c.getCodigoConsulta()));
                 
                 a.add(c);
             }
@@ -201,28 +200,26 @@ public class ConsultaDAO {
             if(rs.next()){
                 c = new Consulta();
 		c.setCodigoConsulta(rs.getLong(1));
-                c.setProtuario(new Prontuario());
-                c.getProtuario().setCodigoConsulta(c.getCodigoConsulta());
-                c.getProtuario().setIdPront(rs.getInt(2));
+
+
+                c.setProtuario(ProntuarioDAO.getInstance().buscar(c.getCodigoConsulta()));
+
                 c.setPacienteCPF(rs.getString(3));
                 c.setMedicoCRM(rs.getString(4));
                 c.setDia(rs.getString(5));
-                c.setPagamento(new Pagamento());
-                c.getPagamento().setCodigoConsulta(c.getCodigoConsulta());
-                c.getPagamento().setIdPag(rs.getInt(6));
+
+                c.setPagamento(PagamentoDAO.getInstance().buscar(c.getCodigoConsulta()));
             }
 
 	} catch (SQLException e) {
             e.printStackTrace();
 	}
 
-        System.out.println("Consulta.buscarIdProntuario");
         return c;
     }
 
     /*Corrigir: Pouco eficiente, evite usar, médico pode ter centenas de consultas cadastradas*/
     public ArrayList<Consulta> buscarIntervalo(String data_inicio, String data_fim, Consulta consulta){
-        System.out.println(data_inicio+" "+data_fim);
 
         String query = "SELECT * FROM consulta " +
                 "WHERE cpf_Paciente="+consulta.getPacienteCPF()+" AND " +
@@ -261,15 +258,14 @@ public class ConsultaDAO {
             while(rs.next()){
 		c = new Consulta();
 		c.setCodigoConsulta(rs.getLong(1));
-                c.setProtuario(new Prontuario());
-                c.getProtuario().setCodigoConsulta(c.getCodigoConsulta());
-                c.getProtuario().setIdPront(rs.getInt(2));
+
+                c.setProtuario(ProntuarioDAO.getInstance().buscar(c.getCodigoConsulta()));
+
                 c.setPacienteCPF(rs.getString(3));
                 c.setMedicoCRM(rs.getString(4));
                 c.setDia(rs.getString(5));
-                c.setPagamento(new Pagamento());
-                c.getPagamento().setCodigoConsulta(c.getCodigoConsulta());
-                c.getPagamento().setIdPag(rs.getInt(6));
+
+                c.setPagamento(PagamentoDAO.getInstance().buscar(c.getCodigoConsulta()));
 
                 a.add(c);
             }
@@ -280,25 +276,54 @@ public class ConsultaDAO {
 
         return a;
     }
+    public void removerExame(Consulta c, Exame e){
+       Statement stm;
 
-    /*Idem buscarIntervalo*/
-    public boolean horarioEstaDisponivel(Consulta c) {
-        int i;
-        Date d = new Date(System.currentTimeMillis());
-        Date d2 = new Date(d.getTime()+(2*365*24*60*60*1000000));
+       ExameDAO.getInstance().excluir(e);
 
-        ArrayList<Consulta> a =
-                ConsultaDAO.getInstance().buscarIntervalo(d.toString(), d2.toString(), c);
+       /*Alterar consulta no banco aqui*/
+       String query = "DELETE FROM Exame_Consulta " +
+               "WHERE id_Exame="+e.getId()+
+               " AND id_consulta="+c.getCodigoConsulta()+";";
 
-        for(i = 0; i <a.size(); i++){
-            /*Se bater com horário já cadastrado não está disponível*/
-/*            if(a.get(i).getHorario().equals(c.getHorario()) &&
-                    a.get(i).getDia().equals(c.getDia()))
-            {
-                return false;
-            }*/
-        }
 
-        return true;
+	try {
+            stm = conn.createStatement();
+            stm.executeUpdate(query);
+	} catch (Exception ex) {
+            ex.printStackTrace();
+	}
+    }
+
+     public void inserirExame(Consulta c, Exame exame){
+       Statement stm;
+       ResultSet rs;
+
+       ExameDAO.getInstance().salvar(exame);
+       Exame e = null;
+
+       String query1 = "SELECT MAX(id) FROM exame;";
+       
+	try {
+            stm = conn.createStatement();
+            rs = stm.executeQuery(query1);
+            if(rs.next()){
+                e = ExameDAO.getInstance().buscar(rs.getLong(1));
+                e.setData(exame.getData());
+                System.out.println(e.toString());
+                
+                String query = "INSERT INTO Exame_Consulta VALUES ("+
+                        c.getCodigoConsulta()+", "+e.getId()+", '"+e.getData()+"');";
+                stm.executeUpdate(query);
+
+                exame = e;
+            }
+	} catch (Exception ex) {
+            ex.printStackTrace();
+	}
+    }
+
+    public ArrayList getAllExames(Consulta c) {
+        return ExameDAO.getInstance().getAllExames(c.getCodigoConsulta());
     }
 }

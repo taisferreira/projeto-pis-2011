@@ -23,10 +23,12 @@ public class BuscarConsulta extends javax.swing.JFrame {
     int medicoSelecionado = 0;
     boolean carregou_medicos = false;
     private ArrayList<Object> medicos = ConsultaControler.getAllMedicos();
+    private int op = 0;
 
     /** Creates new form RemarcarConsulta */
-    public BuscarConsulta() {
+    public BuscarConsulta(int opcao) {
         initComponents();
+        op = opcao;
     }
 
     /** This method is called from within the constructor to
@@ -137,7 +139,7 @@ public class BuscarConsulta extends javax.swing.JFrame {
             }
 
             ArrayList<Object> consultas =
-                    ConsultaControler.selecionar_consulta_para_excluir(medico,jtf_cpf.getText());
+                    ConsultaControler.buscar_lista_consultas(medico,jtf_cpf.getText());
 
             if(consultas.size() == 0){
                 labelAvisos.setText("Nenhuma consulta foi encontrada");
@@ -145,13 +147,11 @@ public class BuscarConsulta extends javax.swing.JFrame {
             else if(consultas.size() == 1){
                 
                 int n = JOptionPane.showConfirmDialog(this,
-                        "\n"+consultas.get(0).toString(),
-                        "Remarcar consulta?",JOptionPane.YES_NO_OPTION);
+                        ""+consultas.get(0).toString(),
+                        "Esta é a consulta correta?",JOptionPane.YES_NO_OPTION);
                 if(n == JOptionPane.YES_OPTION){
                     //ConsultaControler.exclui_consulta(consultas.get(0));
-                    ConsultaControler.remarcar_consulta(consultas.get(0));
-                    labelAvisos.setText("Consulta remarcada!.");
-                    this.dispose();
+                    executar_acao(op, consultas.get(0));
                 }
                 else labelAvisos.setText("Consulta inalterada.");
             }
@@ -164,7 +164,7 @@ public class BuscarConsulta extends javax.swing.JFrame {
                 }
 
                 String input = (String) JOptionPane.showInputDialog(null, "Mais de uma consulta encontrada.",
-                "Escolha a consulta a ser remarcada", JOptionPane.QUESTION_MESSAGE, null,
+                "Escolha uma das consultas", JOptionPane.QUESTION_MESSAGE, null,
                  options, options[0]);
 
                if(null != input && input.isEmpty() == false){
@@ -175,13 +175,11 @@ public class BuscarConsulta extends javax.swing.JFrame {
                     }
 
                     int n = JOptionPane.showConfirmDialog(this,
-                            "\n"+consultas.get(in).toString()+
+                            ""+consultas.get(in).toString()+
                             "\n",
-                            "Remarcar consulta?",JOptionPane.YES_NO_OPTION);
+                            "Esta é a consulta correta?",JOptionPane.YES_NO_OPTION);
                     if(n == JOptionPane.YES_OPTION){
-                        ConsultaControler.remarcar_consulta(consultas.get(in));
-                        labelAvisos.setText("Consulta remarcada!.");
-                        this.dispose();
+                        executar_acao(op,consultas.get(0));
                     }
                     else labelAvisos.setText("Consulta inalterada.");
                     }
@@ -233,4 +231,14 @@ public class BuscarConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel mensagemBuscar;
     // End of variables declaration//GEN-END:variables
 
+    private void executar_acao(int opcao, Object consulta){
+        if(opcao == 0){
+            ConsultaControler.remarcar_consulta(consulta);
+            labelAvisos.setText("Consulta remarcada!.");
+        }
+        else{
+            ConsultaControler.exibir_alterar_prontuario(consulta);
+        }
+        this.dispose();
+    }
 }

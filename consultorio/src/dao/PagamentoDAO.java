@@ -70,7 +70,6 @@ private static PagamentoDAO pagamentoDAO = null;
     }
 
     public void remover(Pagamento c){
-       System.out.println("Pagamento.remover");
        Statement stm;
 
        /*Alterar consulta no banco aqui*/
@@ -92,7 +91,6 @@ private static PagamentoDAO pagamentoDAO = null;
        Statement stm;
        Pagamento c = null;
 
-        System.out.println("pagamento.buscar");
         try {
             stm = conn.createStatement();
             rs = stm.executeQuery(query);
@@ -102,8 +100,7 @@ private static PagamentoDAO pagamentoDAO = null;
                 c.setIdPag(rs.getLong(1));
                 c.setCodigoConsulta(rs.getLong(2));
 
-                c.setIdConv(new Convenio("conv", "cnpj"));
-                c.getIdConv().setDesconto(rs.getDouble(3));
+                c.setIdConv(new ConvenioDao().getConvenio(rs.getDouble(3)+""));
                 
                 c.setValor(rs.getDouble(4));
                 c.setVencimento(rs.getString(5));

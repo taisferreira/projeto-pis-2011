@@ -57,7 +57,16 @@ public class Medicacao {
         MedicacaoDAO.getInstance().remover(this);
     }
 
-    public ArrayList<Medicacao> buscarMedicacao(String descricao){
-        return MedicacaoDAO.getInstance().buscar(descricao);
+    public Medicacao buscarMedicacao(String descricao){
+        return MedicacaoDAO.getInstance().buscarDescricao(descricao);
+    }
+
+    public Medicacao buscarID(Long id){
+        return MedicacaoDAO.getInstance().buscarId(id);
+    }
+
+    @Override
+    public String toString(){
+        return descricao+" \n"+posologia+" \nDurante "+duracao;
     }
 }
