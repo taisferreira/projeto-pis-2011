@@ -211,7 +211,7 @@ public class Consultorio extends javax.swing.JFrame {
         });
         Remarcar.add(jMenuItem5);
 
-        exibirAlterarDados.setText("Exibir/Alterar dados");
+        exibirAlterarDados.setText("Prontuario");
         exibirAlterarDados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exibirAlterarDadosActionPerformed(evt);
@@ -338,7 +338,7 @@ private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jMenuItem5ActionPerformed
 
 private void menuItemRemarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRemarcarActionPerformed
-    ConsultaControler.buscar_para_remarcar();
+    ConsultaControler.buscar_para_alterar(0);
 }//GEN-LAST:event_menuItemRemarcarActionPerformed
 
 private void miAtualizarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarPacienteActionPerformed
@@ -368,7 +368,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_formWindowClosing
 
 private void exibirAlterarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirAlterarDadosActionPerformed
-    ConsultaControler.exibir_alterar_consulta();
+    ConsultaControler.buscar_para_alterar(1);
 }//GEN-LAST:event_exibirAlterarDadosActionPerformed
 
 

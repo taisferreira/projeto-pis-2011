@@ -88,7 +88,6 @@ public class ProntuarioDAO {
     }
 
      public void remover(Prontuario c){
-       System.out.println("Prontuario.remover");
        Statement stm;
        ResultSet rs;
        Medicacao m;
@@ -117,5 +116,89 @@ public class ProntuarioDAO {
 	} catch (Exception e) {
             e.printStackTrace();
 	}
+    }
+
+     public void atualizar(Prontuario p){
+        Statement stm;
+
+        String query1 = "UPDATE prontuario " +
+                "SET diagnostico='"+p.getDiagnostico()+"'," +
+                "sintomas='"+p.getSintomas()+"' " +
+                " WHERE codigoConsulta="+p.getCodigoConsulta()+";";
+
+
+	try {
+            stm = conn.createStatement();
+            stm.executeUpdate(query1);
+	} catch (Exception e) {
+            e.printStackTrace();
+	}
+    }
+
+     public void removerMedicacao(Prontuario p, Medicacao med){
+       Statement stm;
+
+       med.removerMedicacao();
+       /*Alterar consulta no banco aqui*/
+       String query = "DELETE FROM medicacao_prontuario " +
+               "WHERE id_prontuario="+p.getIdPront()+" " +
+               "AND id_medicacao="+med.getIdMedicacao()+";";
+	try {
+            stm = conn.createStatement();
+            stm.executeUpdate(query);
+	} catch (Exception e) {
+            e.printStackTrace();
+	}
+    }
+
+     public void inserirMedicacao(Prontuario p, Medicacao med){
+       Statement stm;
+       ResultSet rs;
+
+       med.salvarMedicacao();
+       med = med.buscarMedicacao(med.getDescricao());
+
+       /*Alterar consulta no banco aqui*/
+       String query2 = "select max(id) from medicacao;";
+       String query = "INSERT INTO medicacao_prontuario " +
+               "VALUES ("+med.getIdMedicacao()+", "+p.getIdPront()+");";
+
+
+	try {
+            stm = conn.createStatement();
+            rs = stm.executeQuery(query2);
+            if(rs.next()){
+                med.setIdMedicacao(rs.getLong(1));
+                stm.executeUpdate(query);
+            }
+	} catch (Exception e) {
+            e.printStackTrace();
+	}
+    }
+
+    public ArrayList<Medicacao> buscarMedicacoes (Prontuario p){
+        /*Alterar consulta no banco aqui*/
+       String query = "SELECT id_medicacao FROM medicacao_prontuario " +
+               "WHERE id_prontuario="+p.getIdPront()+";";
+
+       ResultSet rs;
+       Statement stm;
+       Medicacao m = null;
+       ArrayList<Medicacao> meds = new ArrayList<Medicacao>();
+
+        try {
+            stm = conn.createStatement();
+            rs = stm.executeQuery(query);
+
+            while(rs.next()){
+                m = MedicacaoDAO.getInstance().buscarId(rs.getLong(1));
+                meds.add(m);
+            }
+
+	} catch (Exception e) {
+            e.printStackTrace();
+	}
+
+        return meds;
     }
 }

@@ -6,6 +6,7 @@
 package model;
 
 import dao.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -47,6 +48,21 @@ public class Prontuario {
 
     public void setSintomas(String sintomas) {
         this.sintomas = sintomas;
+    }
+
+    public void atualizar() {
+        ProntuarioDAO.getInstance().atualizar(this);
+    }
+
+    public void inserirMedicacao(Medicacao med){
+        ProntuarioDAO.getInstance().inserirMedicacao(this, med);
+    }
+
+    public void removerMedicacao(Medicacao med){
+        ProntuarioDAO.getInstance().removerMedicacao(this, med);
+    }
+    public ArrayList<Medicacao> buscaMedicacoes(){
+        return ProntuarioDAO.getInstance().buscarMedicacoes(this);
     }
 
 }

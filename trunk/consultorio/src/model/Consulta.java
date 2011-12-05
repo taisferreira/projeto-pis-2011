@@ -26,10 +26,6 @@ public class Consulta {
 
     public Consulta(){}
     
-    public boolean horarioEhValido(){
-        return ConsultaDAO.getInstance().horarioEstaDisponivel(this);
-    }
-
     public void marcarConsulta(){
         ConsultaDAO.getInstance().salvar(this);
         ArrayList<Consulta> ac = ConsultaDAO.getInstance().buscar_CPF_CRM(medicoCRM, pacienteCPF);
@@ -143,5 +139,18 @@ public class Consulta {
 
      public void atualizar(){
         ConsultaDAO.getInstance().atualizar(this);
+    }
+
+     public ArrayList getAllExames() {
+        return ConsultaDAO.getInstance().getAllExames(this);
+    }
+
+    public void adicionarExame(Exame e) {
+        System.out.println("Consulta.adicionarExame");
+        ConsultaDAO.getInstance().inserirExame(this, e);
+    }
+
+    public void removerExame(Exame e){
+         ConsultaDAO.getInstance().removerExame(this, e);
     }
 }

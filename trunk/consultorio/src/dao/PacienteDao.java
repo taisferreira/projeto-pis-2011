@@ -131,10 +131,10 @@ public class PacienteDao {
 
             rs = ps.executeQuery();
 
-            while (rs.next()){
+            if (rs.next()){
                 paciente = new Paciente();
                 paciente.setCpfPaciente(cpf);
-                paciente.setEndPaciente(rs.getString("nome"));
+                paciente.setNomePaciente(rs.getString("nome"));
                 paciente.setEndPaciente(rs.getString("endereco"));
                 paciente.setTelPaciente(rs.getString("telefone"));
             }

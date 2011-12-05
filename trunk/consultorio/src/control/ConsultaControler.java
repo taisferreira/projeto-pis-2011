@@ -14,14 +14,19 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import model.Consulta;
 import model.Convenio;
+import model.Exame;
+import model.Medicacao;
 import model.Medico;
 import model.Pagamento;
 import model.Prontuario;
 import util.Observador;
+import view.AdicionarExame;
+import view.AdicionarMedicacao;
 import view.BuscarConsulta;
 import view.EscolherDia;
 import view.EscolherHorario;
 import view.ExcluirConsulta;
+import view.ExibirAlterarProntuario;
 import view.MarcarConsulta;
 import view.RemarcarConsulta;
 
@@ -41,6 +46,7 @@ public class ConsultaControler implements Observador{
     private static Convenio convenio = null;
     private static EscolherDia escolherVencimento = null;
     private static String vencimentoEscolhido = null;
+    private static ExibirAlterarProntuario observarExAltMed = null;
 
    public static void marcar_consulta(){
        new MarcarConsulta().setVisible(true);
@@ -50,8 +56,8 @@ public class ConsultaControler implements Observador{
        new ExcluirConsulta().setVisible(true);
    }
 
-   public static void buscar_para_remarcar(){
-       new BuscarConsulta().setVisible(true);
+   public static void buscar_para_alterar(int opcao){
+       new BuscarConsulta(opcao).setVisible(true);
    }
 
    public static void remarcar_consulta(Object o){
@@ -59,30 +65,17 @@ public class ConsultaControler implements Observador{
        new RemarcarConsulta(c).setVisible(true);
    }
 
-   public static void exibir_alterar_consulta(){
-       System.out.println("Exibir ou Alterar dados da consuta");
+   public static void exibir_alterar_prontuario(Object o){
+       Consulta c = (Consulta) o;
+       new ExibirAlterarProntuario(c).setVisible(true);
    }
 
-   public static ArrayList selecionar_consulta_para_excluir(Object medico, String cpfPaciente){
+   public static ArrayList buscar_lista_consultas(Object medico, String cpfPaciente){
        if(medico == null) {
            return ConsultaDAO.getInstance().buscar_CPF_CRM("", cpfPaciente);
        }
        Medico m = (Medico) medico;
        return ConsultaDAO.getInstance().buscar_CPF_CRM(m.getCrm(), cpfPaciente);
-       /*Consulta c = new Consulta();
-       Medico m = (Medico) medico;
-       c.setMedicoCRM(m.getCrm());
-       c.setPacienteCPF(cpfPaciente);
-
-       Date d1 = new Date(System.currentTimeMillis());
-       int ano = Integer.parseInt(d1.toString().substring(0, 4));
-       ano = ano+5;
-
-       Date d2 = Date.valueOf(ano+d1.toString().substring(4, 10));
-       d1 = Date.valueOf("0000-00-00");
-
-       //Busca todas as consultas de hoje até daqui 5 anos
-       return ConsultaDAO.getInstance().buscarIntervalo(d1.toString(), d2.toString(), c);*/
    }
 
     public static ArrayList<Object> getAllMedicos(){
@@ -157,6 +150,7 @@ public class ConsultaControler implements Observador{
         ConsultaControler.escolherhorario.addObservador(new ConsultaControler());
     }
 
+
     public static void salvarConsulta(MarcarConsulta mc){
         if(ConsultaControler.escolherhorario != null){
             ConsultaControler.escolherhorario.dispose();
@@ -173,7 +167,7 @@ public class ConsultaControler implements Observador{
 
         Pagamento pag = new Pagamento();
         pag.setValor(mc.getValorConsulta());
-        System.out.println(pag.getValor()+"");
+        
         if(mc.getVencimento().isEmpty()){
             pag.setVencimento(" ");
         }
@@ -216,7 +210,6 @@ public class ConsultaControler implements Observador{
     }
 
     public static void atualizarConsulta(Consulta c) {
-        System.out.println("Consulta Controler: Atualizar Consulta");
         if(ConsultaControler.escolherhorario != null){
             ConsultaControler.escolherhorario.dispose();
         }
@@ -232,6 +225,59 @@ public class ConsultaControler implements Observador{
         c.setDia(Timestamp.valueOf(""+ConsultaControler.dataEscolhida+" " +
                 ""+ConsultaControler.horarioEscolhido+"0").toString());
         c.atualizar();
+    }
+
+    public static void atualizaProntuario(Prontuario p,
+            String diagnostico, String sintomas)
+    {
+        if(p.getIdPront() != 0){
+           p.setDiagnostico(diagnostico);
+           p.setSintomas(sintomas);
+           p.atualizar();
+        }
+    }
+
+    public static void adicionaMedicacao(Prontuario prontuario, Object medicacao) {
+        Medicacao m =  (Medicacao) medicacao;
+        prontuario.inserirMedicacao(m);
+    }
+
+    public static void removeMedicacao(Prontuario protuario, Object medicacao) {
+        Medicacao m =  (Medicacao) medicacao;
+        protuario.removerMedicacao(m);
+    }
+
+    public static void pegarMedicacao(ExibirAlterarProntuario eap)
+    {
+        ConsultaControler.observarExAltMed = eap;
+        AdicionarMedicacao am = new AdicionarMedicacao(new Medicacao());
+        am.addObservador(new ConsultaControler());
+        am.setVisible(true);
+    }
+
+    public static ArrayList<Medicacao> buscarMedicacoes(Prontuario p){
+        return p.buscaMedicacoes();
+    }
+
+    public static ArrayList getAllExames(Consulta consulta) {
+        return consulta.getAllExames();
+    }
+
+    public static void adicionaExame(Consulta consulta, Object exa) {
+        Exame e = (Exame) exa;
+        consulta.adicionarExame(e);
+    }
+
+    public static void removeExame(Consulta consulta, Object exa) {
+        Exame e = (Exame) exa;
+        consulta.removerExame(e);
+    }
+
+    public static void pegarExame(ExibirAlterarProntuario eap) {
+        ConsultaControler.observarExAltMed = eap;
+        AdicionarExame ae = new AdicionarExame();
+        ae.addObservador(new ConsultaControler());
+        ae.setVisible(true);
     }
 
     @Override
@@ -263,6 +309,19 @@ public class ConsultaControler implements Observador{
             if(ConsultaControler.observarHorario != null){
                 ConsultaControler.horarioEscolhido = eh.getHorarioSelecionado();
                 ConsultaControler.observarHorario.setText(ConsultaControler.horarioEscolhido.substring(0, 2)+":00");
+            }
+        }
+        if(obj instanceof AdicionarMedicacao){
+            AdicionarMedicacao am = (AdicionarMedicacao) obj;
+            if(ConsultaControler.observarExAltMed != null){
+                ConsultaControler.observarExAltMed.adicionaListaMedicacao(am.getMedicacao());
+            }
+        }
+        if(obj instanceof AdicionarExame){
+            AdicionarExame ae = (AdicionarExame) obj;
+            if(ConsultaControler.observarExAltMed != null){
+                ConsultaControler.observarExAltMed.adicionaListaExames(ae.getExame());
+                ae.dispose();
             }
         }
     }
