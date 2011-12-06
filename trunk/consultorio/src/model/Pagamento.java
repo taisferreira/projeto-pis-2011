@@ -38,6 +38,14 @@ public class Pagamento {
     public String getVencimento() {
         return vencimento.toString();
     }
+    
+    public String getVencimento2() {
+        String dia, mes, ano;
+        dia = vencimento.toString().substring(8, 10);
+        mes = vencimento.toString().substring(5, 7);
+        ano = vencimento.toString().substring(0, 4);
+        return dia + "/" + mes + "/" + ano;
+    }
 
     public void setCodigoConsulta(long codigoConsulta) {
         this.codigoConsulta = codigoConsulta;
