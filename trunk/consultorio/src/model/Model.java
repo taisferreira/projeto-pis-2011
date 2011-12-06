@@ -8,13 +8,13 @@ import dao.Conexao;
 import dao.ConvenioDao;
 import dao.DAOException;
 import dao.DespesasDao;
+import dao.PagamentoDAO;
 import dao.FuncaoDao;
 import dao.FuncionarioDao;
 import dao.MedicoDao;
 import dao.PacienteDao;
 import dao.UsuarioDao;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Misc;
@@ -212,5 +212,20 @@ public class Model {
 
     public ArrayList<Funcao> buscarFuncao() {
         return new FuncaoDao(con).buscarFuncao();
+    }
+    
+    
+    //Esperando receber uma lista de Despesas
+    public ArrayList<Despesa> buscarDespesa(String filtro, int status) {
+        return new DespesasDao(con).buscarDespesa(filtro, status);
+    }
+
+    //Esperando receber uma lista de Pagamentos
+    public ArrayList<Pagamento> buscarRecebimento(String filtro, int status) {
+        PagamentoDAO pagtoDAO = null;
+        ArrayList<Pagamento> pagtos;
+        pagtos = PagamentoDAO.getInstance().buscarPagamento(filtro, status);
+
+        return pagtos;
     }
 }
