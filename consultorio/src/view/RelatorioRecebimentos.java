@@ -60,7 +60,7 @@ public class RelatorioRecebimentos extends javax.swing.JFrame {
             dtm.removeRow(0);
         }
         for (int i = 0; i < recebimentos.size(); i++) {
-            dtm.addRow(new Object[]{recebimentos.get(i).getCodigoConsulta(), recebimentos.get(i).getIdConv().getNome(), recebimentos.get(i).getValor(), recebimentos.get(i).getVencimento()});
+            dtm.addRow(new Object[]{recebimentos.get(i).getCodigoConsulta(), recebimentos.get(i).getIdConv().getNome(), recebimentos.get(i).getValor(), recebimentos.get(i).getVencimento2()});
         }
 
     }

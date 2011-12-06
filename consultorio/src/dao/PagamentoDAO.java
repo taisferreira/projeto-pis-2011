@@ -192,7 +192,7 @@ public class PagamentoDAO {
             dataSistema = converteDataParaInteiro(dataSist);
 
             for (i = 0; i < pagtos.size(); i++) {
-                venc = converteDataParaInteiro(pagtos.get(i).getVencimento());
+                venc = converteDataParaInteiro(pagtos.get(i).getVencimento2());
                 if (venc >= dataSistema) { // remove os pagtos nao recebidos
                     pagtos.remove(i);
                     i--;
@@ -210,7 +210,7 @@ public class PagamentoDAO {
             dataSistema = converteDataParaInteiro(dataSist);
 
             for (i = 0; i < pagtos.size(); i++) {
-                venc = converteDataParaInteiro(pagtos.get(i).getVencimento());
+                venc = converteDataParaInteiro(pagtos.get(i).getVencimento2());
                 if (venc < dataSistema) { // remove os pagtos recebidos
                     pagtos.remove(i);
                     i--;
