@@ -20,6 +20,7 @@ import model.Usuario;
  * @author Fabricio
  */
 public class Consultorio extends javax.swing.JFrame {
+
     private Usuario user;
     private Controler controler;
 
@@ -45,8 +46,6 @@ public class Consultorio extends javax.swing.JFrame {
     public void setUser(Usuario user) {
         this.user = user;
     }
-    
-    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -77,9 +76,9 @@ public class Consultorio extends javax.swing.JFrame {
         menuItemRemarcar = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         exibirAlterarDados = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuRelatorios = new javax.swing.JMenu();
+        jMenuRecebimentos = new javax.swing.JMenuItem();
+        jMenuDespesas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Consultorio");
@@ -221,15 +220,25 @@ public class Consultorio extends javax.swing.JFrame {
 
         mbPrincipal.add(Remarcar);
 
-        jMenu2.setText("Relatórios");
+        jMenuRelatorios.setText("Relatórios");
 
-        jMenuItem6.setText("Recebimentos");
-        jMenu2.add(jMenuItem6);
+        jMenuRecebimentos.setText("Recebimentos");
+        jMenuRecebimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuRecebimentosActionPerformed(evt);
+            }
+        });
+        jMenuRelatorios.add(jMenuRecebimentos);
 
-        jMenuItem7.setText("Despesas");
-        jMenu2.add(jMenuItem7);
+        jMenuDespesas.setText("Despesas");
+        jMenuDespesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuDespesasActionPerformed(evt);
+            }
+        });
+        jMenuRelatorios.add(jMenuDespesas);
 
-        mbPrincipal.add(jMenu2);
+        mbPrincipal.add(jMenuRelatorios);
 
         setJMenuBar(mbPrincipal);
 
@@ -250,37 +259,37 @@ public class Consultorio extends javax.swing.JFrame {
 private void miCadastroMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroMedicoActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                new CadastroMedico(controler).setVisible(true);
-            }
-        });
+        @Override
+        public void run() {
+            new CadastroMedico(controler).setVisible(true);
+        }
+    });
 }//GEN-LAST:event_miCadastroMedicoActionPerformed
 
 private void miCadastroFuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroFuncaoActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                new CadastrarFuncao(controler).setVisible(true);
-            }
-        });
+        @Override
+        public void run() {
+            new CadastrarFuncao(controler).setVisible(true);
+        }
+    });
 }//GEN-LAST:event_miCadastroFuncaoActionPerformed
 
 private void miCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroFuncionarioActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                new CadastroFuncionario(controler).setVisible(true);
-            }
-        });
+        @Override
+        public void run() {
+            new CadastroFuncionario(controler).setVisible(true);
+        }
+    });
 }//GEN-LAST:event_miCadastroFuncionarioActionPerformed
 
 private void miCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroClienteActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
 
-            @Override
+        @Override
         public void run() {
             new CadastrarPaciente(controler).setVisible(true);
         }
@@ -290,17 +299,17 @@ private void miCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {/
 private void miCadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadConvenioActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                new CadastrarConvenio(controler).setVisible(true);
-            }
-        });
+        @Override
+        public void run() {
+            new CadastrarConvenio(controler).setVisible(true);
+        }
+    });
 }//GEN-LAST:event_miCadConvenioActionPerformed
 
 private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
     java.awt.EventQueue.invokeLater(new Runnable() {
 
-            @Override
+        @Override
         public void run() {
             CadastrarDespesa fcad = new CadastrarDespesa(controler);
             fcad.getJfCpf().setText(user.getUserCpf());
@@ -342,7 +351,7 @@ private void menuItemRemarcarActionPerformed(java.awt.event.ActionEvent evt) {//
 }//GEN-LAST:event_menuItemRemarcarActionPerformed
 
 private void miAtualizarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarPacienteActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    java.awt.EventQueue.invokeLater(new Runnable() {
 
         @Override
         public void run() {
@@ -362,7 +371,7 @@ private void miAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {
 }//GEN-LAST:event_miAtualizarUsuarioActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    if(JOptionPane.showConfirmDialog(null, "Deseja realmente sair?")==0){
+    if (JOptionPane.showConfirmDialog(null, "Deseja realmente sair?") == 0) {
         this.dispose();
     }
 }//GEN-LAST:event_formWindowClosing
@@ -371,16 +380,39 @@ private void exibirAlterarDadosActionPerformed(java.awt.event.ActionEvent evt) {
     ConsultaControler.buscar_para_alterar(1);
 }//GEN-LAST:event_exibirAlterarDadosActionPerformed
 
+private void jMenuRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRecebimentosActionPerformed
+    java.awt.EventQueue.invokeLater(new Runnable() {
+
+        @Override
+        public void run() {
+            new RelatorioRecebimentos(controler).setVisible(true);
+        }
+    });
+}//GEN-LAST:event_jMenuRecebimentosActionPerformed
+
+private void jMenuDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDespesasActionPerformed
+    java.awt.EventQueue.invokeLater(new Runnable() {
+
+        @Override
+        public void run() {
+            new RelatorioDespesas(controler).setVisible(true);
+        }
+    });
+}//GEN-LAST:event_jMenuDespesasActionPerformed
+
+    private void mCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Remarcar;
     private javax.swing.JMenuItem exibirAlterarDados;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuDespesas;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuRecebimentos;
+    private javax.swing.JMenu jMenuRelatorios;
     private javax.swing.JMenu mAtualizar;
     private javax.swing.JMenu mCadastrar;
     private javax.swing.JMenu mExcluir;

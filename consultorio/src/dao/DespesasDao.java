@@ -5,8 +5,10 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import model.Despesa;
 
 /**
@@ -18,7 +20,7 @@ public class DespesasDao {
     private static String SQL_CREATE_DESPESA = "insert into despesas"
             + " (DESCRICAO, VALOR, PAGO, CPF_USUARIO_FUNCIONARIO) "
             + " values((?),(?),(?),(?))";
-    
+    private static final String SQL_FIND_DESPESA = "select * from despesas";
     private Conexao conexao;
     
     public DespesasDao(Conexao con) {
@@ -65,5 +67,68 @@ public class DespesasDao {
                 throw new DAOException(e.getMessage());
             }
         }
+    }
+    
+    public ArrayList<Despesa> buscarDespesa(String filtro, int status) {
+
+        int i;
+        ArrayList<Despesa> despesas = new ArrayList<Despesa>();
+
+        Connection c;
+        PreparedStatement ps;
+        ResultSet rs;
+        Despesa d = null;
+
+        try {
+            c = new Conexao().getCon();
+
+            ps = c.prepareStatement(SQL_FIND_DESPESA);
+           
+
+            rs = ps.executeQuery();
+
+            while (rs.next()){
+                d = new Despesa();
+                d.setDescricao(rs.getString("descricao"));
+                d.setValor(rs.getDouble("valor"));
+                d.setPago(rs.getString("pago"));
+                d.setCpfUsuario(rs.getString("cpf_Usuario_Funcionario"));
+                despesas.add(d);
+            }
+        } catch (Exception sqlx) {}
+
+        
+        if (status == 1) {
+            //retorna todas as despesas do banco, portando aqui nao fazemos nada!
+        }
+        if (status == 2) {
+            //retorna todas as despesas cujo CPF = filtro
+            for (i = 0; i < despesas.size(); i++) {
+                if (!despesas.get(i).getCpfUsuario().equals(filtro)) {
+                    despesas.remove(i);
+                    i--;
+                }
+            }
+        }
+        if (status == 3) {
+            //retorna todas as despesas pagas
+            for (i = 0; i < despesas.size(); i++) {
+                if (!despesas.get(i).getPago().equals("S")) {
+                    despesas.remove(i);
+                    i--;
+                }
+            }
+        }
+        if (status == 4) {
+            //retorna todas as despesas nao pagas ainda
+            for (i = 0; i < despesas.size(); i++) {
+                if (!despesas.get(i).getPago().equals("N")) {
+                    despesas.remove(i);
+                    i--;
+                }
+            }
+        }
+
+        return despesas;
     }
 }

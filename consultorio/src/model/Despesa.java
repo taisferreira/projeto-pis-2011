@@ -9,10 +9,14 @@ package model;
  * @author Fabricio
  */
 public class Despesa {
+
     private String descricao;
     private Double valor;
     private String pago;
     private String cpfUsuario;
+
+    public Despesa() {
+    }
 
     public Despesa(String descricao, Double valor, String pago, String cpfUsuario) {
         this.descricao = descricao;
@@ -56,5 +60,5 @@ public class Despesa {
     @Override
     public String toString() {
         return "Despesa{" + "descricao=" + descricao + ", valor=" + valor + ", pago=" + pago + ", cpfUsuario=" + cpfUsuario + '}';
-    }    
+    }
 }

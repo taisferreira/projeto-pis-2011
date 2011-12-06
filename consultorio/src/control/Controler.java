@@ -5,10 +5,11 @@
 package control;
 
 import java.util.ArrayList;
-import java.util.List;
+import model.Despesa;
 import model.Funcao;
 import model.Model;
 import model.Paciente;
+import model.Pagamento;
 import model.Usuario;
 import util.Misc;
 
@@ -95,5 +96,13 @@ public class Controler {
 
     public ArrayList<Funcao> buscaFuncao() {
         return model.buscarFuncao();
+    }
+          
+    public ArrayList<Despesa> buscaDespesa(String filtro, int status) {
+        return model.buscarDespesa(filtro, status);
+    }
+    
+    public ArrayList<Pagamento> buscaRecebimento(String filtro, int status) {
+        return model.buscarRecebimento(filtro, status);
     }
 }
