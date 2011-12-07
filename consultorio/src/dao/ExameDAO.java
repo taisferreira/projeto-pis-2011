@@ -110,8 +110,8 @@ public class ExameDAO {
                 e = new Exame();
                 e.setId(aLong);
                 e.setNome(rs.getString(1));
-                e.setLocal(rs.getString(2));
-                e.setValor(rs.getDouble(3));
+                e.setValor(rs.getDouble(2));
+                e.setLocal(rs.getString(3));
             }
 	} catch (Exception ex) {
             ex.printStackTrace();
