@@ -192,13 +192,13 @@ public class Model {
     
     
     public Usuario executarLogin(String cpf, String senha){
-        Usuario user = new Usuario(Misc.getDigitos(cpf), null, senha, 3);
+        Usuario user = new Usuario(Misc.getDigitos(cpf), null, senha, null);
         UsuarioDao userDao = new UsuarioDao(con);
         Usuario foundUser = userDao.getUser(user);
         if( (foundUser.getUserCpf()==null) || !(foundUser.getUserPassword().equals(user.getUserPassword())) ){
             return null;
         } else {
-            return user;
+            return foundUser;
         }
     }
 

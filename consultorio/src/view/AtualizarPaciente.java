@@ -13,6 +13,7 @@ package view;
 
 import control.Controler;
 import model.Paciente;
+import util.Misc;
 
 /**
  *
@@ -41,7 +42,6 @@ public class AtualizarPaciente extends javax.swing.JFrame {
 
         botaoAtualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        campoCPF = new javax.swing.JTextField();
         botaoBuscar = new javax.swing.JButton();
         campoNome = new javax.swing.JTextField();
         Nome = new javax.swing.JLabel();
@@ -50,6 +50,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         campoTel = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         botaoCancelar = new javax.swing.JButton();
+        jfCpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,6 +83,12 @@ public class AtualizarPaciente extends javax.swing.JFrame {
             }
         });
 
+        try {
+            jfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,18 +111,18 @@ public class AtualizarPaciente extends javax.swing.JFrame {
                             .addContainerGap())
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(campoTel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                                .addComponent(campoEnd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                                .addComponent(campoNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                                .addComponent(campoTel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                .addComponent(campoEnd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                .addComponent(campoNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                    .addComponent(jfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                                     .addComponent(botaoBuscar)))
                             .addGap(18, 18, 18)
                             .addComponent(botaoAtualizar)
                             .addGap(29, 29, 29)))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(305, Short.MAX_VALUE)
+                .addContainerGap(309, Short.MAX_VALUE)
                 .addComponent(botaoCancelar)
                 .addGap(18, 18, 18))
         );
@@ -125,13 +132,12 @@ public class AtualizarPaciente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoAtualizar)
+                    .addComponent(botaoBuscar)
+                    .addComponent(jfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(botaoAtualizar)
-                        .addComponent(botaoBuscar)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(Nome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -143,19 +149,16 @@ public class AtualizarPaciente extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(36, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCancelar)
-                        .addContainerGap())))
+                        .addComponent(campoTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoCancelar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
-        Paciente p = controler.buscarPaciente(campoCPF.getText());
+        Paciente p = controler.buscarPaciente(Misc.getDigitos(jfCpf.getText()));
         campoEnd.setText(p.getEndPaciente());
         campoTel.setText(p.getTelPaciente());
         campoNome.setText(p.getNomePaciente());
@@ -166,7 +169,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
-        Paciente p = new Paciente(campoCPF.getText(), campoNome.getText(), campoEnd.getText(), campoTel.getText());
+        Paciente p = new Paciente(Misc.getDigitos(jfCpf.getText()), campoNome.getText(), campoEnd.getText(), campoTel.getText());
         controler.atualizarPaciente(p);
     }//GEN-LAST:event_botaoAtualizarActionPerformed
 
@@ -176,13 +179,13 @@ public class AtualizarPaciente extends javax.swing.JFrame {
     private javax.swing.JButton botaoAtualizar;
     private javax.swing.JButton botaoBuscar;
     private javax.swing.JButton botaoCancelar;
-    private javax.swing.JTextField campoCPF;
     private javax.swing.JTextField campoEnd;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoTel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JFormattedTextField jfCpf;
     // End of variables declaration//GEN-END:variables
 
 }
