@@ -58,15 +58,15 @@ public class AdicionarExame extends javax.swing.JFrame {
         marcar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Adicionar exame");
+        setTitle("Adicionar exame ou procedimento");
 
-        labelNome.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        labelNome.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         labelNome.setText("Nome/Descrição:");
 
-        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         jLabel2.setText("Local:");
 
-        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         jLabel3.setText("Valor:");
 
         data.setText("Selecione uma data");
@@ -76,7 +76,7 @@ public class AdicionarExame extends javax.swing.JFrame {
             }
         });
 
-        labelDia.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        labelDia.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         labelDia.setText("Dia:");
 
         marcar.setText("marcar");

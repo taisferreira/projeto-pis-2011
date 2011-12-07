@@ -60,6 +60,6 @@ public class Exame {
 
     @Override
     public String toString(){
-        return nome+": local="+local+", valor="+valor+", data="+data;
+        return nome+" \nlocal="+local+" \nvalor:"+valor+"\n Agendamento:"+data.toString().substring(0, 10);
     }
 }

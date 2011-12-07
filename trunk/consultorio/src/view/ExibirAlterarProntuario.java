@@ -78,6 +78,8 @@ public class ExibirAlterarProntuario extends javax.swing.JFrame {
         removerMedicacao = new javax.swing.JButton();
         medicacoes = new javax.swing.JComboBox();
         exames = new javax.swing.JComboBox();
+        exibirExame = new javax.swing.JButton();
+        exibirMedicacao = new javax.swing.JButton();
         salvar = new javax.swing.JButton();
         imprimirProntuario = new javax.swing.JButton();
         Sair = new javax.swing.JButton();
@@ -220,8 +222,8 @@ public class ExibirAlterarProntuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(sintomas);
 
-        jLabel6.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
-        jLabel6.setText("Exames:");
+        jLabel6.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel6.setText("Exames/Procedimentos:");
 
         diagnostico.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -272,6 +274,20 @@ public class ExibirAlterarProntuario extends javax.swing.JFrame {
             }
         });
 
+        exibirExame.setText("exibir");
+        exibirExame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exibirExameActionPerformed(evt);
+            }
+        });
+
+        exibirMedicacao.setText("exibir");
+        exibirMedicacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exibirMedicacaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -293,15 +309,19 @@ public class ExibirAlterarProntuario extends javax.swing.JFrame {
                                             .addComponent(jLabel6)
                                             .addGroup(jPanel3Layout.createSequentialGroup()
                                                 .addComponent(adicionarExame)
-                                                .addGap(43, 43, 43)
-                                                .addComponent(removerExame))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(removerExame)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(exibirExame, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(exames, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(59, 59, 59)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel3Layout.createSequentialGroup()
                                                 .addComponent(adicionarMedicacao)
-                                                .addGap(45, 45, 45)
-                                                .addComponent(removerMedicacao))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(removerMedicacao)
+                                                .addGap(16, 16, 16)
+                                                .addComponent(exibirMedicacao, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(Medicacoes)
                                             .addComponent(medicacoes, 0, 258, Short.MAX_VALUE)))
                                     .addComponent(diagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -340,10 +360,12 @@ public class ExibirAlterarProntuario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(adicionarMedicacao)
-                        .addComponent(removerMedicacao))
+                        .addComponent(removerMedicacao)
+                        .addComponent(exibirMedicacao))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(adicionarExame)
-                        .addComponent(removerExame)))
+                        .addComponent(removerExame)
+                        .addComponent(exibirExame)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -461,6 +483,20 @@ public class ExibirAlterarProntuario extends javax.swing.JFrame {
         exameSelecionado = exames.getSelectedIndex();
     }//GEN-LAST:event_examesItemStateChanged
 
+private void exibirExameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirExameActionPerformed
+    if(exameSelecionado != -1){
+        javax.swing.JOptionPane.showMessageDialog(null, 
+                listaExames.get(exameSelecionado).toString());
+    }
+}//GEN-LAST:event_exibirExameActionPerformed
+
+private void exibirMedicacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirMedicacaoActionPerformed
+    if(medicacaoSelecionada != -1){
+        javax.swing.JOptionPane.showMessageDialog(jPanel3,
+                listaMedicacoes.get(medicacaoSelecionada).toString());
+    }
+}//GEN-LAST:event_exibirMedicacaoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Medicacoes;
     private javax.swing.JButton Sair;
@@ -474,6 +510,8 @@ public class ExibirAlterarProntuario extends javax.swing.JFrame {
     private javax.swing.JTextField diagnostico;
     private javax.swing.JLabel enderecoPaciente;
     private javax.swing.JComboBox exames;
+    private javax.swing.JButton exibirExame;
+    private javax.swing.JButton exibirMedicacao;
     private javax.swing.JButton imprimirProntuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
