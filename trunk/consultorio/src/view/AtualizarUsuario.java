@@ -13,6 +13,7 @@ package view;
 
 import control.Controler;
 import model.Usuario;
+import util.Misc;
 
 /**
  *
@@ -42,7 +43,6 @@ public class AtualizarUsuario extends javax.swing.JFrame {
         Nome = new javax.swing.JLabel();
         campoNome = new javax.swing.JTextField();
         botaoBuscar = new javax.swing.JButton();
-        campoCPF = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         botaoCancelar = new javax.swing.JButton();
         campoTipo = new javax.swing.JTextField();
@@ -50,6 +50,7 @@ public class AtualizarUsuario extends javax.swing.JFrame {
         botaoAtualizar = new javax.swing.JButton();
         campoSenha = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jfCpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,11 +83,16 @@ public class AtualizarUsuario extends javax.swing.JFrame {
 
         jLabel2.setText("Senha");
 
+        try {
+            jfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,33 +111,31 @@ public class AtualizarUsuario extends javax.swing.JFrame {
                             .addContainerGap())
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(campoTipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                                .addComponent(campoSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                                .addComponent(campoNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                                .addComponent(campoTipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                .addComponent(campoSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                .addComponent(campoNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                    .addComponent(jfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                                     .addComponent(botaoBuscar)))
                             .addGap(18, 18, 18)
                             .addComponent(botaoAtualizar)
                             .addGap(29, 29, 29)))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(305, Short.MAX_VALUE)
+                .addContainerGap(309, Short.MAX_VALUE)
                 .addComponent(botaoCancelar)
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(botaoAtualizar)
-                        .addComponent(botaoBuscar)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoAtualizar)
+                    .addComponent(botaoBuscar)
+                    .addComponent(jfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
@@ -148,7 +152,6 @@ public class AtualizarUsuario extends javax.swing.JFrame {
                         .addComponent(campoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(36, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoCancelar)
                         .addContainerGap())))
         );
@@ -157,7 +160,7 @@ public class AtualizarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
-        Usuario p = controler.buscarUsuario(campoCPF.getText());
+        Usuario p = controler.buscarUsuario(Misc.getDigitos(jfCpf.getText()));
         campoSenha.setText(p.getUserPassword());
         campoTipo.setText(p.getUserType().toString());
         campoNome.setText(p.getUserName());
@@ -168,7 +171,9 @@ public class AtualizarUsuario extends javax.swing.JFrame {
 }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
-        Usuario p = new Usuario(campoCPF.getText(), campoNome.getText(), campoSenha.getText(), Integer.parseInt(campoTipo.getText()));
+        Usuario p = new Usuario(Misc.getDigitos(jfCpf.getText()), 
+                campoNome.getText(), campoSenha.getText(), 
+                Integer.parseInt(campoTipo.getText()));
         controler.atualizarUsuario(p);
 }//GEN-LAST:event_botaoAtualizarActionPerformed
 
@@ -178,13 +183,13 @@ public class AtualizarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton botaoAtualizar;
     private javax.swing.JButton botaoBuscar;
     private javax.swing.JButton botaoCancelar;
-    private javax.swing.JTextField campoCPF;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoSenha;
     private javax.swing.JTextField campoTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JFormattedTextField jfCpf;
     // End of variables declaration//GEN-END:variables
 
 }

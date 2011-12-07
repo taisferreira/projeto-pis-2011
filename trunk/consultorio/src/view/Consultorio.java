@@ -14,6 +14,7 @@ import control.ConsultaControler;
 import control.Controler;
 import javax.swing.JOptionPane;
 import model.Usuario;
+import util.Constantes;
 
 /**
  *
@@ -221,6 +222,11 @@ public class Consultorio extends javax.swing.JFrame {
         mbPrincipal.add(Remarcar);
 
         jMenuRelatorios.setText("Relatórios");
+        jMenuRelatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuRelatoriosActionPerformed(evt);
+            }
+        });
 
         jMenuRecebimentos.setText("Recebimentos");
         jMenuRecebimentos.addActionListener(new java.awt.event.ActionListener() {
@@ -277,6 +283,10 @@ private void miCadastroFuncaoActionPerformed(java.awt.event.ActionEvent evt) {//
 }//GEN-LAST:event_miCadastroFuncaoActionPerformed
 
 private void miCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroFuncionarioActionPerformed
+    if(!user.getUserType().toString().equals(Constantes.ADMINISTRADOR)){
+        JOptionPane.showMessageDialog(null, Constantes.NOT_AUTHORIZED);
+        return;
+    }
     java.awt.EventQueue.invokeLater(new Runnable() {
 
         @Override
@@ -307,6 +317,10 @@ private void miCadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 }//GEN-LAST:event_miCadConvenioActionPerformed
 
 private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    if(!user.getUserType().toString().equals(Constantes.ADMINISTRADOR)){
+        JOptionPane.showMessageDialog(null, Constantes.NOT_AUTHORIZED);
+        return;
+    }
     java.awt.EventQueue.invokeLater(new Runnable() {
 
         @Override
@@ -319,6 +333,10 @@ private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jMenuItem8ActionPerformed
 
 private void miExcluirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirUsuarioActionPerformed
+    if(!user.getUserType().toString().equals(Constantes.ADMINISTRADOR)){
+        JOptionPane.showMessageDialog(null, Constantes.NOT_AUTHORIZED);
+        return;
+    }
     java.awt.EventQueue.invokeLater(new Runnable() {
 
         @Override
@@ -361,6 +379,10 @@ private void miAtualizarPacienteActionPerformed(java.awt.event.ActionEvent evt) 
 }//GEN-LAST:event_miAtualizarPacienteActionPerformed
 
 private void miAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarUsuarioActionPerformed
+    if(!user.getUserType().toString().equals(Constantes.ADMINISTRADOR)){
+        JOptionPane.showMessageDialog(null, Constantes.NOT_AUTHORIZED);
+        return;
+    }
     java.awt.EventQueue.invokeLater(new Runnable() {
 
         @Override
@@ -371,16 +393,21 @@ private void miAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {
 }//GEN-LAST:event_miAtualizarUsuarioActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    if (JOptionPane.showConfirmDialog(null, "Deseja realmente sair?") == 0) {
-        this.dispose();
-    }
 }//GEN-LAST:event_formWindowClosing
 
 private void exibirAlterarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirAlterarDadosActionPerformed
+    if(!user.getUserType().toString().equals(Constantes.ADMINISTRADOR)){
+        JOptionPane.showMessageDialog(null, Constantes.NOT_AUTHORIZED);
+        return;
+    }
     ConsultaControler.buscar_para_alterar(1);
 }//GEN-LAST:event_exibirAlterarDadosActionPerformed
 
 private void jMenuRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRecebimentosActionPerformed
+    if(!user.getUserType().toString().equals(Constantes.ADMINISTRADOR)){
+        JOptionPane.showMessageDialog(null, Constantes.NOT_AUTHORIZED);
+        return;
+    }
     java.awt.EventQueue.invokeLater(new Runnable() {
 
         @Override
@@ -391,6 +418,10 @@ private void jMenuRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_jMenuRecebimentosActionPerformed
 
 private void jMenuDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDespesasActionPerformed
+    if(!user.getUserType().toString().equals(Constantes.ADMINISTRADOR)){
+        JOptionPane.showMessageDialog(null, Constantes.NOT_AUTHORIZED);
+        return;
+    }
     java.awt.EventQueue.invokeLater(new Runnable() {
 
         @Override
@@ -399,6 +430,9 @@ private void jMenuDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         }
     });
 }//GEN-LAST:event_jMenuDespesasActionPerformed
+
+private void jMenuRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRelatoriosActionPerformed
+}//GEN-LAST:event_jMenuRelatoriosActionPerformed
 
     private void mCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:

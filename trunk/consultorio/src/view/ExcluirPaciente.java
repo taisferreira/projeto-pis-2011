@@ -17,6 +17,8 @@ import dao.DAOException;
 import dao.PacienteDao;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Paciente;
+import util.Misc;
 
 /**
  *
@@ -39,18 +41,18 @@ public class ExcluirPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pacientecpf = new javax.swing.JTextField();
         botaoexcluir = new javax.swing.JButton();
         labelcpf = new javax.swing.JLabel();
         botaocancelar = new javax.swing.JButton();
+        jfCpf = new javax.swing.JFormattedTextField();
+        tfNome = new javax.swing.JTextField();
+        tfEnd = new javax.swing.JTextField();
+        tfTel = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        pacientecpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pacientecpfActionPerformed(evt);
-            }
-        });
 
         botaoexcluir.setText("Excluir");
         botaoexcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -68,6 +70,29 @@ public class ExcluirPaciente extends javax.swing.JFrame {
             }
         });
 
+        try {
+            jfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jfCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jfCpfFocusLost(evt);
+            }
+        });
+
+        tfNome.setEditable(false);
+
+        tfEnd.setEditable(false);
+
+        tfTel.setEditable(false);
+
+        jLabel1.setText("Nome:");
+
+        jLabel2.setText("Endereço:");
+
+        jLabel3.setText("Telefone:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,25 +100,44 @@ public class ExcluirPaciente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelcpf)
+                    .addComponent(labelcpf)
+                    .addComponent(jfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(botaoexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(pacientecpf, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botaoexcluir))
-                    .addComponent(botaocancelar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                        .addComponent(botaocancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(tfTel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap()
+                .addComponent(labelcpf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1)
+                .addGap(1, 1, 1)
+                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pacientecpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoexcluir)
-                    .addComponent(labelcpf))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-                .addComponent(botaocancelar)
+                    .addComponent(botaocancelar))
                 .addContainerGap())
         );
 
@@ -105,19 +149,28 @@ public class ExcluirPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_botaocancelarActionPerformed
 
     private void botaoexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoexcluirActionPerformed
-        controler.excluirPaciente(pacientecpf.getText());
+        controler.excluirPaciente(Misc.getDigitos(jfCpf.getText()));
         this.dispose();
     }//GEN-LAST:event_botaoexcluirActionPerformed
 
-private void pacientecpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pacientecpfActionPerformed
-    this.botaoexcluirActionPerformed(evt);
-}//GEN-LAST:event_pacientecpfActionPerformed
+private void jfCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jfCpfFocusLost
+    Paciente p = controler.buscarPaciente(Misc.getDigitos(jfCpf.getText()));
+    tfEnd.setText(p.getEndPaciente());
+    tfNome.setText(p.getNomePaciente());
+    tfTel.setText(p.getTelPaciente());
+}//GEN-LAST:event_jfCpfFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaocancelar;
     private javax.swing.JButton botaoexcluir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JFormattedTextField jfCpf;
     private javax.swing.JLabel labelcpf;
-    private javax.swing.JTextField pacientecpf;
+    private javax.swing.JTextField tfEnd;
+    private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfTel;
     // End of variables declaration//GEN-END:variables
 
 }
