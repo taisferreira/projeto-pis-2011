@@ -468,6 +468,7 @@ public class ExibirAlterarProntuario extends javax.swing.JFrame {
     }//GEN-LAST:event_removerMedicacaoActionPerformed
 
     private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
+        salvarActionPerformed(evt);
         this.dispose();
     }//GEN-LAST:event_SairActionPerformed
 

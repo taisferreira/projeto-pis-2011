@@ -26,6 +26,7 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private ArrayList<Object> convenios = ConsultaControler.getAllConvenios();
     private int convenioSelecionado = 0;
     private int medicoSelecionado = 0;
+    private boolean dataVencimentoChanged = false;
 
     /** Creates new form MarcarConsulta */
     public MarcarConsulta() {
@@ -418,6 +419,7 @@ public class MarcarConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_jtf_cpfPacienteMouseClicked
 
     private void dataVencimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataVencimentoActionPerformed
+        dataVencimentoChanged = true;
         ConsultaControler.selectDiaVencimento(null, dataVencimento);
 }//GEN-LAST:event_dataVencimentoActionPerformed
 
@@ -462,6 +464,11 @@ public class MarcarConsulta extends javax.swing.JFrame {
     }
 
     public String getVencimento(){
+         if(dataVencimento.getText().equals("Selecione a data")
+                 || dataVencimento.isEnabled()==false ||
+                 dataVencimentoChanged == false){
+            return "";
+        }
         return dataVencimento.getText().substring(6, 10)+"-"+
                 dataVencimento.getText().substring(3, 5)+"-"+
                 dataVencimento.getText().substring(0, 2);
