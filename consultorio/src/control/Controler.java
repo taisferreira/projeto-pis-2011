@@ -42,27 +42,55 @@ public class Controler {
         model.salvarFuncao(tfNome);
     }
     
-    public void salvarPaciente(String tfCpf, String tfNome, String tfEndereco, String tfTelefone){
+    public boolean salvarPaciente(String tfCpf, String tfNome, String tfEndereco, String tfTelefone){
+        if(Controler.pacienteCadastrado(Misc.getDigitos(tfCpf))){
+            return false;
+        }
         model.salvarPaciente(Misc.getDigitos(tfCpf), tfNome, tfEndereco, Misc.getDigitos(tfTelefone));
+        return true;
     }
     
-    public void salvarFuncionario(String tfCodFn,String nomeFn, String salario, String userCpf, String userName, char[] userPassword, String userType){
+    public boolean salvarFuncionario(String tfCodFn,String nomeFn, String salario, String userCpf, String userName, char[] userPassword, String userType){
         Double tmp;
         int tfCodFnInt, userTypeInt;
         String password;
         password = new String(userPassword);
-        tmp = Double.parseDouble(salario);
-        tfCodFnInt = Integer.parseInt(tfCodFn);
+        if(salario.isEmpty()){
+            tmp = 0.0;
+        }
+        else{
+            tmp = Double.parseDouble(salario);
+        }
+        if(tfCodFn.equals("S")){
+            tfCodFnInt = 1;
+        }
+        else{
+            tfCodFnInt = Integer.parseInt(tfCodFn);
+        }
         userTypeInt = Integer.parseInt(userType);
-        model.salvarFuncionario(tfCodFnInt, nomeFn, tmp, Misc.getDigitos(userCpf), userName, password, userTypeInt);
+        if(Controler.usuarioCadastrado(Misc.getDigitos(userCpf))){
+            return false;
+        }
+        else{
+            model.salvarFuncionario(tfCodFnInt, nomeFn, tmp,
+                    Misc.getDigitos(userCpf), userName, password, userTypeInt);
+            return true;
+        }
     }
     
-    public void salvarMedico(String tfCrm, String tfCpf,String tfNome, char[] tfSenha,String tfTipo){
+    public boolean salvarMedico(String tfCrm, String tfCpf,String tfNome, char[] tfSenha,String tfTipo){
         int tfTipoInt;
         String tfSenhaString;
         tfTipoInt = Integer.parseInt(tfTipo);
         tfSenhaString = new String(tfSenha);
-        model.salvarMedico(tfCrm, Misc.getDigitos(tfCpf), tfNome, tfSenhaString, tfTipoInt);
+        if(Controler.usuarioCadastrado(Misc.getDigitos(tfCpf))){
+            return false;
+        }
+        else{
+           model.salvarMedico(tfCrm, Misc.getDigitos(tfCpf), tfNome, tfSenhaString, tfTipoInt);
+           return true;
+        }
+        
     }
     
     
@@ -104,5 +132,15 @@ public class Controler {
     
     public ArrayList<Pagamento> buscaRecebimento(String filtro, int status) {
         return model.buscarRecebimento(filtro, status);
+    }
+
+    public static boolean pacienteCadastrado(String cpf) {
+        if(dao.PacienteDao.buscar(cpf) == null){
+            return false;
+        }
+        return true;
+    }
+    private static boolean usuarioCadastrado(String digitos) {
+        return Usuario.usuarioCadastrado(digitos);
     }
 }
