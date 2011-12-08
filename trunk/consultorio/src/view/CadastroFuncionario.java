@@ -11,6 +11,7 @@
 package view;
 
 import control.Controler;
+import java.awt.Color;
 import java.util.ArrayList;
 import model.Funcao;
 
@@ -50,6 +51,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jfCpf = new javax.swing.JFormattedTextField();
         jcFuncTest = new javax.swing.JComboBox();
         jcTipo = new javax.swing.JComboBox();
+        avisos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastrar Médico"); // NOI18N
@@ -86,6 +88,11 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jfCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jfCpfKeyTyped(evt);
+            }
+        });
 
         jcFuncTest.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma função" }));
         jcFuncTest.addItemListener(new java.awt.event.ItemListener() {
@@ -106,6 +113,9 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         jcTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0-Administrador", "1-Usuário" }));
 
+        avisos.setForeground(new java.awt.Color(248, 40, 12));
+        avisos.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,14 +124,13 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btSalvar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btCancelar))
-                            .addComponent(jLabel1)
-                            .addComponent(jfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(291, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btSalvar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(avisos, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,8 +146,8 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(39, 39, 39))))
+                            .addComponent(jLabel6))))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btCancelar, btSalvar});
@@ -169,7 +178,8 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btSalvar)
-                            .addComponent(btCancelar)))
+                            .addComponent(btCancelar)
+                            .addComponent(avisos)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,12 +199,17 @@ private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_btCancelarActionPerformed
 
 private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-    controler.salvarFuncionario(jcFuncTest.getItemAt(jcFuncTest.
+    if(controler.salvarFuncionario(jcFuncTest.getItemAt(jcFuncTest.
             getSelectedIndex()).toString().substring(0, 1), null, 
             tfSalario.getText(), jfCpf.getText(), tfNome.getText(), 
             tfSenha.getPassword(),jcTipo.getItemAt(jcTipo.
-            getSelectedIndex()).toString().substring(0, 1));
-    this.dispose();
+            getSelectedIndex()).toString().substring(0, 1))){
+        this.dispose();
+    }
+    else{
+        jLabel1.setForeground(Color.red);
+        avisos.setText("CPF de funcionário já cadastrado.");
+    }
 }//GEN-LAST:event_btSalvarActionPerformed
 
 private void jcFuncTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcFuncTestActionPerformed
@@ -210,8 +225,14 @@ private void jcFuncTestFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:e
 private void jcFuncTestItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcFuncTestItemStateChanged
 }//GEN-LAST:event_jcFuncTestItemStateChanged
 
+private void jfCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jfCpfKeyTyped
+    jLabel1.setForeground(Color.black);
+    avisos.setText("");
+}//GEN-LAST:event_jfCpfKeyTyped
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel avisos;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
