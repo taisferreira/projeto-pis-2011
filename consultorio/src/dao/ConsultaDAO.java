@@ -136,19 +136,19 @@ public class ConsultaDAO {
            }
            else{/*So paciente*/
                query = "SELECT * FROM consulta WHERE " +
-                       "cpf_Paciente="+cpf_paciente+";";
+                       "cpf_Paciente='"+cpf_paciente+"';";
            }
        }
        else {/*Com médico*/
 
             if(cpf_paciente == null || cpf_paciente.isEmpty()){/*e sem paciente*/
-                 query = "SELECT * FROM consulta WHERE crm_Medico="+crm_medico+";";
+                 query = "SELECT * FROM consulta WHERE crm_Medico='"+crm_medico+"';";
             }
             else{/*e com paciente*/
                 query = "SELECT * " +
                        "FROM consulta " +
-                       "WHERE cpf_Paciente="+cpf_paciente+" " +
-                       "AND crm_Medico="+crm_medico+";";
+                       "WHERE cpf_Paciente='"+cpf_paciente+"' " +
+                       "AND crm_Medico='"+crm_medico+"';";
             }
        }
 
