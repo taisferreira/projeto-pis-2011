@@ -4,6 +4,9 @@
  */
 package model;
 
+import dao.Conexao;
+import dao.UsuarioDao;
+
 /**
  *
  * @author Fabricio
@@ -61,5 +64,13 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "userCpf=" + userCpf + ", userName=" + userName + ", userPassword=" + userPassword + ", userType=" + userType + '}';
     }
-    
+
+
+    public static boolean usuarioCadastrado(String digitos){
+        UsuarioDao u = new UsuarioDao(new Conexao());
+        if(u.getUser(new Usuario(digitos, null, null, Integer.MIN_VALUE)).getUserName() == null){
+                return false;
+        }
+        return true;
+    }
 }
