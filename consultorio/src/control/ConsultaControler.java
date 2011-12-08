@@ -169,7 +169,7 @@ public class ConsultaControler implements Observador{
         pag.setValor(mc.getValorConsulta());
         
         if(mc.getVencimento().isEmpty()){
-            pag.setVencimento(" ");
+            pag.setVencimento("");
         }
         else {
             pag.setVencimento(mc.getVencimento());

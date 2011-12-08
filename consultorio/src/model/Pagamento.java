@@ -36,6 +36,9 @@ public class Pagamento {
     }
 
     public String getVencimento() {
+        if(this.vencimento == null){
+            return "";
+        }
         return vencimento.toString();
     }
     
@@ -63,9 +66,14 @@ public class Pagamento {
         this.valor = valor;
     }
 
-    /* Esperando string do tipo dd/mm/yyyy */
-    public void setVencimento(String dd_mm_yyyy) {
-        this.vencimento = java.sql.Date.valueOf(dd_mm_yyyy);
+    /* Esperando string do tipo yyyy-mm-dd */
+    public void setVencimento(String dia) {
+        if(dia.isEmpty()){
+            this.vencimento = null;
+        }
+        else{
+            this.vencimento = java.sql.Date.valueOf(dia);
+        }
     }
 
     public int salvarPagamento(){

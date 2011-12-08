@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="277" max="32767" attributes="0"/>
+              <EmptySpace pref="283" max="32767" attributes="0"/>
               <Component id="botao_marcar_consulta" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="261" max="-2" attributes="0"/>
           </Group>
@@ -111,7 +111,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="569" max="32767" attributes="0"/>
+              <EmptySpace pref="574" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
